@@ -1,0 +1,22 @@
+- name: Upload dist/ to the subdomain by SFTP
+  env:
+    SFTP_HOST: ${{ secrets.SFTP_HOST }}
+    SFTP_PORT: ${{ secrets.SFTP_PORT }}
+    SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+    LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+    SFTP_TARGET_DIR: ${{ secrets.SFTP_TARGET_DIR }}
+
+  run: |
+    sudo apt-get update -qq
+    sudo apt-get install -y -qq lftp
+
+    lftp --env-password \
+      -u "$SFTP_USERNAME" \
+      -p "$SFTP_PORT" \
+      "sftp://$SFTP_HOST" \
+      -e "
+        set sftp:auto-confirm yes;
+        set net:max-retries 2;
+        mirror --reverse --verbose --parallel=4 dist/ $SFTP_TARGET_DIR/;
+        bye
+      "
