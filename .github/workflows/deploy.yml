@@ -1,22 +1,71 @@
-- name: Upload dist/ to the subdomain by SFTP
-  env:
-    SFTP_HOST: ${{ secrets.SFTP_HOST }}
-    SFTP_PORT: ${{ secrets.SFTP_PORT }}
-    SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-    LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-    SFTP_TARGET_DIR: ${{ secrets.SFTP_TARGET_DIR }}
+name: Build and deploy frontend
 
-  run: |
-    sudo apt-get update -qq
-    sudo apt-get install -y -qq lftp
+on:
+  workflow_dispatch:
 
-    lftp --env-password \
-      -u "$SFTP_USERNAME" \
-      -p "$SFTP_PORT" \
-      "sftp://$SFTP_HOST" \
-      -e "
-        set sftp:auto-confirm yes;
-        set net:max-retries 2;
-        mirror --reverse --verbose --parallel=4 dist/ $SFTP_TARGET_DIR/;
-        bye
-      "
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-sftp-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        env:
+          # Repository variable: public API URL, never a password or token.
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+        run: |
+          : "${VITE_API_BASE_URL:?Set the VITE_API_BASE_URL repository variable before deploying}"
+          npm run build
+          npm run check:dist
+
+      - name: Upload dist/ to the subdomain by SFTP
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_TARGET_DIR: ${{ secrets.SFTP_TARGET_DIR }}
+        run: |
+          : "${SFTP_HOST:?Missing SFTP_HOST secret}"
+          : "${SFTP_USERNAME:?Missing SFTP_USERNAME secret}"
+          : "${LFTP_PASSWORD:?Missing SFTP_PASSWORD secret}"
+          : "${SFTP_TARGET_DIR:?Missing SFTP_TARGET_DIR secret}"
+          SFTP_PORT="${SFTP_PORT:-22}"
+          # Keep the target a literal path inside lftp's command language.
+          if [[ ! "$SFTP_TARGET_DIR" =~ ^[a-zA-Z0-9_./\ -]+$ ]]; then
+            echo "SFTP_TARGET_DIR contains unsupported path characters."
+            exit 1
+          fi
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+
+          lftp --env-password \
+            -u "$SFTP_USERNAME" \
+            -p "$SFTP_PORT" \
+            "sftp://$SFTP_HOST" \
+            -e "
+              set cmd:fail-exit yes;
+              set sftp:auto-confirm yes;
+              set net:max-retries 2;
+              mirror --reverse --verbose --parallel=4 dist/ \"$SFTP_TARGET_DIR/\";
+              bye
+            "
