@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Discover" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="discover" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(28px,6cqi,88px) clamp(20px,5.5cqi,80px) clamp(40px,6cqi,96px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(28px,5cqi,72px);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:clamp(18px,2.4cqi,28px)">
+        <span style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7A5E22">Custom occasion wear · Lagos · Abuja · Port Harcourt</span>
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(42px,6.2cqi,88px);line-height:1;letter-spacing:-.01em;color:#2B2B2B;text-wrap:balance">Find the right designer for your occasion</h1>
+        <p style="margin:0;font-size:clamp(16px,1.4cqi,19px);line-height:1.6;max-width:520px;text-wrap:pretty">Browse approved Nigerian designers, send one of them a custom request, agree the specification together, then follow your outfit from first stitch to handover.</p>
+        <form role="search" style="display:flex;flex-direction:column;gap:8px;max-width:560px">
+          <label for="q" style="font-size:14px;font-weight:600;color:#2B2B2B">Search designers or specialties</label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <input id="q" type="search" placeholder="e.g. agbada, gele, bridal aso-ebi" style="flex:1 1 220px;min-width:0;height:52px;padding:0 16px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)">
+            <button type="submit" style="flex:0 0 auto;height:52px;padding:0 26px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:background .16s ease" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Search</button>
+          </div>
+        </form>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font-size:13px;font-weight:600;color:#5E5B55">Occasion</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ occasions }}" as="o" hint-placeholder-count="5"><button style="min-height:44px;padding:0 16px;border:1px solid #D6CDBB;border-radius:999px;background:#FFFFFF;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:background .16s ease" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ o }}</button></sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;aspect-ratio:4 / 5;max-height:720px;border-radius:16px;overflow:hidden;background:#EFE9DD"><img src="images/bride-cream-iro-gele.jpg" alt="Bride in champagne aso-oke iro and buba with coral beads and gele" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block">
+        <span style="position:absolute;top:16px;right:16px;font-size:12px;font-weight:600;color:#2B2B2B;background:#FFFFFF;padding:8px 12px;border-radius:10px;box-shadow:0 6px 18px rgba(20,51,42,.12)">By Atelier Adùnní, Lekki</span>
+      </div>
+    </section>
+    <section aria-labelledby="cat" style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,5.5cqi,80px) clamp(48px,6cqi,96px);display:flex;flex-direction:column;gap:16px">
+      <h2 id="cat" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8cqi,40px);font-weight:600;color:#2B2B2B">Browse by garment</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:12px">
+        <sc-for list="{{ categories }}" as="c" hint-placeholder-count="6"><a href="#" style="display:flex;flex-direction:column;background:#FFFFFF;border-radius:14px;overflow:hidden;text-decoration:none;box-shadow:0 1px 2px rgba(20,51,42,.06),0 8px 22px rgba(20,51,42,.06);transition:box-shadow .2s ease" style-hover="box-shadow:0 2px 4px rgba(20,51,42,.08),0 14px 30px rgba(20,51,42,.1)" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><span style="aspect-ratio:1;overflow:hidden;background:#EFE9DD"><img src="{{ c.img }}" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block"></span><span style="padding:12px 14px;font-size:15px;font-weight:600;color:#2B2B2B">{{ c.name }}</span></a></sc-for>
+      </div>
+    </section>
+    <section aria-labelledby="feat" style="background:#F3EDE1">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(48px,6cqi,96px) clamp(20px,5.5cqi,80px);display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:8px"><h2 id="feat" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.4cqi,48px);font-weight:600;color:#2B2B2B">Featured designers</h2><p style="margin:0;font-size:15px">Approved for the MY GARB pilot and accepting requests.</p></div>
+          <a href="#" style="min-height:44px;display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#1F4D3A;text-decoration:none" style-hover="text-decoration:underline">See all designers<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+        </div>
+        <sc-if value="{{ ready }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:24px">
+            <sc-for list="{{ featured }}" as="d" hint-placeholder-count="3"><dc-import name="DesignerCard" designer="{{ d }}" layout="mosaic" hint-size="100%,420px"></dc-import></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ loading }}">
+          <div aria-busy="true" aria-label="Loading featured designers" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:24px">
+            <sc-for list="{{ skeletons }}" as="s" hint-placeholder-count="3"><div style="background:#FFFFFF;border-radius:16px;overflow:hidden;display:flex;flex-direction:column"><span style="height:203px;background:#E9E2D3"></span><div style="padding:18px 20px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:12px;align-items:center"><span style="width:48px;height:48px;border-radius:50%;background:#EFE9DD"></span><div style="flex:1;display:flex;flex-direction:column;gap:8px"><span style="height:16px;width:70%;border-radius:6px;background:#EFE9DD"></span><span style="height:12px;width:45%;border-radius:6px;background:#EFE9DD"></span></div></div><span style="height:12px;width:40%;border-radius:6px;background:#EFE9DD"></span><div style="display:flex;gap:6px"><span style="height:26px;width:84px;border-radius:999px;background:#F3EDE1"></span><span style="height:26px;width:64px;border-radius:999px;background:#F3EDE1"></span></div></div></div></sc-for>
+          </div>
+          <span role="status" style="font-size:14px;color:#5E5B55">Loading designers…</span>
+        </sc-if>
+      </div>
+    </section>
+    <section aria-labelledby="how" style="max-width:1280px;margin:0 auto;padding:clamp(56px,7cqi,112px) clamp(20px,5.5cqi,80px);display:flex;flex-direction:column;gap:clamp(28px,3.4cqi,48px)">
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:640px"><span style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7A5E22">How it works</span><h2 id="how" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.4cqi,48px);line-height:1.1;font-weight:600;color:#2B2B2B;text-wrap:balance">One designer, one agreed specification, no surprises</h2></div>
+      <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(20px,2.4cqi,32px)">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4"><li style="display:flex;flex-direction:column;gap:10px;padding-top:20px;border-top:1px solid #CFC6B4"><span style="font-family:'Cormorant Garamond',serif;font-size:44px;line-height:1;font-weight:500;color:#B8913F">{{ s.n }}</span><h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#2B2B2B">{{ s.t }}</h3><p style="margin:0;font-size:15px;line-height:1.6;text-wrap:pretty">{{ s.d }}</p></li></sc-for>
+      </ol>
+    </section>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+    <sc-if value="{{ mobile }}"><dc-import name="MGNav" kind="footerMobile" hint-size="100%,320px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="discover" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;default&quot;,&quot;loading&quot;],&quot;default&quot;:&quot;default&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const state = this.props.state ?? 'default';
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile',
+      ready: state !== 'loading', loading: state === 'loading', skeletons: [1, 2, 3],
+      occasions: ['Weddings', 'Traditional engagement', 'Owambe', 'Naming ceremony', 'Aso-ebi'],
+      categories: [
+        { name: 'Agbada', img: 'images/black-gold-agbada.jpg' }, { name: 'Iro and buba', img: 'images/maroon-iro-gele.jpg' }, { name: 'Gele', img: 'images/gold-lace-gele.jpg' },
+        { name: 'Kaftan', img: 'images/navy-kaftan-set.jpg' }, { name: 'Aso-ebi gown', img: 'images/brown-gown-cross.jpg' }, { name: 'Senator wear', img: 'images/beige-green-shirt.jpg' }
+      ],
+      featured: [
+        { businessName: 'Atelier Adùnní', initials: 'AA', avatarTone: '#E8D3B0', serviceLocation: 'Lekki, Lagos', rating: '4.9', reviewCount: 38, specializations: ['Bridal aso-ebi', 'Iro and buba', 'Gele'], availability: 'Accepting requests', images: ['images/bride-cream-iro-gele.jpg', 'images/maroon-iro-gele.jpg', 'images/gold-lace-gele.jpg', 'images/agbada-trio.jpg'], captions: ['Coral iro and buba'] },
+        { businessName: 'House of Kúnlé', initials: 'HK', avatarTone: '#C9D3C4', serviceLocation: 'Surulere, Lagos', rating: '4.8', reviewCount: 24, specializations: ['Agbada', 'Kaftan', 'Fila'], availability: 'Accepting requests', images: ['images/black-gold-agbada.jpg', 'images/brown-agbada.jpg', 'images/agbada-trio.jpg', 'images/navy-kaftan-set.jpg'], captions: ['Navy agbada with embroidery'] },
+        { businessName: 'Zainab Ahmed Studio', initials: 'ZA', avatarTone: '#E2CFD6', serviceLocation: 'Maitama, Abuja', rating: '5.0', reviewCount: 7, specializations: ['Aso-ebi gown', 'Engagement', 'Evening jumpsuits'], availability: 'Limited slots in December', limited: true, images: ['images/brown-gown-cross.jpg', 'images/beige-jumpsuit.jpg', 'images/brown-gown-oneshoulder.jpg', 'images/corset-trousers.jpg'], captions: ['Plum beaded kaftan'] }
+      ],
+      steps: [
+        { n: '01', t: 'Request', d: 'Choose one designer and describe your outfit, occasion date, quantity and how you’d like to be measured.' },
+        { n: '02', t: 'Agree', d: 'Discuss details, then confirm the designer’s specification: fabric, measurements, price in ₦ and ready date.' },
+        { n: '03', t: 'Track', d: 'Your order is created only once you confirm. Follow it from in production to ready and handover.' },
+        { n: '04', t: 'Review', d: 'Confirm completion when you’ve received your outfit, then leave a review for other customers.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

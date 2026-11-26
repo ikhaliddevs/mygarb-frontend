@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="New request" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="requests" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+    <header style="background:#1F4D3A;height:56px;display:flex;align-items:center;padding:0 6px;gap:4px;flex:none;color:#FAF6EE"><button aria-label="Back to Atelier Adùnní" style="width:44px;height:44px;border:0;background:transparent;color:#FAF6EE;display:flex;align-items:center;justify-content:center;border-radius:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button><span style="font-size:16px;font-weight:600">New request</span></header>
+  </sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px) clamp(32px,5cqi,80px);display:flex;flex-wrap:wrap;gap:clamp(24px,4cqi,56px);align-items:flex-start">
+      <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:clamp(20px,2.4cqi,28px)">
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A5E22">Request to Atelier Adùnní</span>
+            <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.6cqi,52px);line-height:1.05;font-weight:600;color:#2B2B2B">{{ heading }}</h1>
+            <span role="status" style="display:flex;align-items:center;gap:6px;font-size:13px;color:#5E5B55"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2E7A55" stroke-width="2.4"><path d="m5 12 5 5 9-10"></path></svg>Private draft saved · 10:42</span>
+          </div>
+          <ol aria-label="Steps" style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+            <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3"><li aria-current="{{ s.current }}" style="display:flex;flex-direction:column;gap:8px"><span style="height:4px;border-radius:4px;background:{{ s.bar }}"></span><span style="font-size:13px;font-weight:{{ s.weight }};color:{{ s.color }}">{{ s.n }} · {{ s.label }}</span></li></sc-for>
+          </ol>
+        </sc-if>
+
+        <sc-if value="{{ isErrors }}">
+          <div role="alert" tabindex="-1" style="background:#F6E1DA;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:8px;color:#8A2E1C">
+            <strong style="font-size:15px;font-weight:600">3 things need fixing before you continue</strong>
+            <a href="#desc" style="color:#8A2E1C;font-size:14px;min-height:32px;display:flex;align-items:center">Describe the outfit you want</a>
+            <a href="#qty" style="color:#8A2E1C;font-size:14px;min-height:32px;display:flex;align-items:center">Quantity must be between 1 and 50</a>
+            <a href="#need" style="color:#8A2E1C;font-size:14px;min-height:32px;display:flex;align-items:center">Needed-by date must be after today</a>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDetailsStep }}" hint-placeholder-val="{{ true }}">
+          <form style="display:flex;flex-direction:column;gap:22px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px">
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="occ" style="font-size:14px;font-weight:600;color:#2B2B2B">Occasion</label><div style="position:relative"><select id="occ" style="width:100%;height:50px;padding:0 40px 0 14px;appearance:none;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><option>Traditional engagement</option></select><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A4A48" stroke-width="2" style="position:absolute;right:14px;top:16px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="cat" style="font-size:14px;font-weight:600;color:#2B2B2B">Garment category</label><div style="position:relative"><select id="cat" style="width:100%;height:50px;padding:0 40px 0 14px;appearance:none;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><option>Iro and buba</option></select><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A4A48" stroke-width="2" style="position:absolute;right:14px;top:16px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="desc" style="font-size:14px;font-weight:600;color:#2B2B2B">Outfit description</label><span id="desch" style="font-size:13px;color:#5E5B55">Colours, fabric, silhouette, details you love. Mention anything you don’t want.</span><textarea id="desc" rows="5" aria-describedby="desch" aria-invalid="{{ errAttr }}" style="padding:12px 14px;border:{{ errBorder }};border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.55;color:#2B2B2B;resize:vertical" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)">{{ descVal }}</textarea><sc-if value="{{ isErrors }}"><span style="font-size:13px;color:#8A2E1C;display:flex;gap:6px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5v.5"></path></svg>Describe the outfit you want</span></sc-if></div>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;font-weight:600;color:#2B2B2B">Reference images <span style="font-weight:400;color:#5E5B55">(optional)</span></span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px">
+                <sc-for list="{{ refs }}" as="r" hint-placeholder-count="2"><div style="position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#EFE9DD"><img src="{{ r.src }}" alt="{{ r.alt }}" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block"><button aria-label="Remove {{ r.alt }}" style="position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;background:transparent;display:flex;align-items:flex-start;justify-content:flex-end;padding:4px;cursor:pointer"><span style="width:26px;height:26px;border-radius:50%;background:rgba(250,246,238,.95);display:flex;align-items:center;justify-content:center;color:#2B2B2B"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 7l10 10M17 7 7 17"></path></svg></span></button></div></sc-for>
+                <button style="aspect-ratio:1;border-radius:12px;border:1.5px dashed #8F8778;background:#FFFFFF;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Add image</button>
+              </div>
+              <span style="font-size:13px;color:#5E5B55">JPEG, PNG or WebP, up to 5 MB each. Only Atelier Adùnní can see them.</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:18px">
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="qty" style="font-size:14px;font-weight:600;color:#2B2B2B">Quantity</label><input id="qty" type="number" value="{{ qtyVal }}" aria-invalid="{{ errAttr }}" style="height:50px;padding:0 14px;border:{{ errBorder }};border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B;min-width:0" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><sc-if value="{{ isErrors }}"><span style="font-size:13px;color:#8A2E1C">Enter between 1 and 50</span></sc-if><sc-if value="{{ noErrors }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#5E5B55">Outfits, not pieces</span></sc-if></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="need" style="font-size:14px;font-weight:600;color:#2B2B2B">Needed by</label><input id="need" type="text" value="{{ needVal }}" aria-invalid="{{ errAttr }}" style="height:50px;padding:0 14px;border:{{ errBorder }};border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B;min-width:0" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><sc-if value="{{ isErrors }}"><span style="font-size:13px;color:#8A2E1C">Choose a date after 5 Nov 2026</span></sc-if><sc-if value="{{ noErrors }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:#5E5B55">Your occasion date</span></sc-if></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="loc" style="font-size:14px;font-weight:600;color:#2B2B2B">Service location</label><div style="position:relative"><select id="loc" style="width:100%;height:50px;padding:0 40px 0 14px;appearance:none;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><option>Lekki, Lagos</option></select><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A4A48" stroke-width="2" style="position:absolute;right:14px;top:16px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg></div><span style="font-size:13px;color:#5E5B55">Within this designer’s area</span></div>
+            </div>
+            <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><legend style="font-size:14px;font-weight:600;color:#2B2B2B;padding:0;margin-bottom:10px">How would you like to be measured?</legend>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px">
+                <label style="display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:14px;background:#FFFFFF;border:2px solid #1F4D3A;cursor:pointer"><span style="flex:none;margin-top:2px;width:22px;height:22px;border-radius:50%;border:2px solid #1F4D3A;display:flex;align-items:center;justify-content:center"><span style="width:11px;height:11px;border-radius:50%;background:#1F4D3A"></span></span><span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:600;color:#2B2B2B">Guided self-measurement</span><span style="font-size:14px;line-height:1.5;color:#5E5B55">We’ll guide you through each measurement. The designer reviews them before agreeing.</span></span></label>
+                <label style="display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:14px;background:#FFFFFF;border:1px solid #D6CDBB;cursor:pointer"><span style="flex:none;margin-top:2px;width:22px;height:22px;border-radius:50%;border:2px solid #8F8778"></span><span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:600;color:#2B2B2B">Designer-assisted fitting</span><span style="font-size:14px;line-height:1.5;color:#5E5B55">Arrange a fitting with Atelier Adùnní. Measurements stay pending until recorded.</span></span></label>
+              </div>
+            </fieldset>
+          </form>
+        </sc-if>
+
+        <sc-if value="{{ isMeasure }}">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
+            <p style="margin:0;font-size:15px;line-height:1.6;max-width:480px">Measurements for <strong style="color:#2B2B2B;font-weight:600">iro and buba with gele</strong>. Measure over light clothing; ask someone to help if you can.</p>
+            <div role="radiogroup" aria-label="Units" style="display:flex;padding:3px;border-radius:12px;background:#EFE9DD"><button role="radio" aria-checked="true" style="height:40px;min-width:56px;border:0;border-radius:10px;background:#FFFFFF;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;box-shadow:0 1px 3px rgba(20,51,42,.12)">cm</button><button role="radio" aria-checked="false" style="height:40px;min-width:56px;border:0;border-radius:10px;background:transparent;color:#4A4A48;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500">inches</button></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px">
+            <sc-for list="{{ measures }}" as="m" hint-placeholder-count="8">
+              <div style="background:#FFFFFF;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;border:{{ m.border }}">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><label style="font-size:15px;font-weight:600;color:#2B2B2B">{{ m.label }}</label><button aria-label="How to measure {{ m.label }}" style="height:44px;padding:0 6px;margin:-10px -6px;border:0;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer">How to</button></div>
+                <div style="position:relative"><input value="{{ m.value }}" inputmode="decimal" style="width:100%;box-sizing:border-box;height:48px;padding:0 48px 0 14px;border:1px solid #8F8778;border-radius:10px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><span style="position:absolute;right:14px;top:14px;font-size:14px;color:#5E5B55">cm</span></div>
+                <sc-if value="{{ m.open }}"><p style="margin:0;font-size:13px;line-height:1.5;color:#4A4A48;background:#F3EDE1;padding:10px 12px;border-radius:8px">{{ m.help }}</p></sc-if>
+                <sc-if value="{{ m.unsure }}"><span style="font-size:13px;line-height:1.45;color:#5E4A16;display:flex;gap:6px;align-items:flex-start"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5v.5"></path></svg>Marked “not sure”. The designer will ask before agreeing.</span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <p style="margin:0;font-size:13px;line-height:1.55;color:#5E5B55">Self-measured · recorded 5 Nov 2026 · awaiting designer review. Measurements are private and never appear on public profiles.</p>
+        </sc-if>
+
+        <sc-if value="{{ isSubmitted }}">
+          <div role="status" style="background:#FFFFFF;border-radius:16px;padding:clamp(24px,4cqi,48px);display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06)">
+            <span style="width:60px;height:60px;border-radius:50%;background:#DDEBE2;display:flex;align-items:center;justify-content:center;color:#1F4D3A"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5 9-10"></path></svg></span>
+            <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.6cqi,48px);line-height:1.05;font-weight:600;color:#2B2B2B">Request sent to Atelier Adùnní</h1>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center"><span style="font-size:14px;color:#5E5B55">Request REQ-2026-0418</span><dc-import name="StatusChip" status="Submitted" hint-size="100px,28px"></dc-import></div>
+            <p style="margin:0;font-size:15px;line-height:1.6;max-width:560px">Adùnní usually replies within a day. She may ask questions, then send a specification for you to confirm. No order exists until you confirm it.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px"><button style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">View request</button><button style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#CDB27A" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Back to Discover</button></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ desktopActions }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding-top:8px;border-top:1px solid #E6DFD0">
+            <button style="height:52px;padding:0 22px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ backLabel }}</button>
+            <button style="height:52px;padding:0 28px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ nextLabel }}</button>
+          </div>
+        </sc-if>
+      </div>
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+        <aside style="flex:0 0 340px;display:flex;flex-direction:column;gap:16px">
+          <div style="background:#FFFFFF;border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.07)">
+            <img src="images/bride-cream-iro-gele.jpg" alt="Atelier Adùnní sample: bride in champagne aso-oke" style="width:100%;height:180px;object-fit:cover;object-position:center 20%;display:block">
+            <div style="padding:18px 20px;display:flex;flex-direction:column;gap:6px"><span style="font-size:12px;color:#5E5B55">Sending to</span><span style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#2B2B2B">Atelier Adùnní</span><span style="font-size:14px">Lekki, Lagos · 4.9 (38 reviews)</span><span style="font-size:13px;color:#2E5A45;display:flex;align-items:center;gap:6px"><span style="width:7px;height:7px;border-radius:50%;background:#2E7A55"></span>Accepting requests · 4–6 weeks</span></div>
+          </div>
+          <div style="background:#F3EDE1;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E5B55">What happens next</span><ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.5"><li>Adùnní discusses details with you in Messages.</li><li>She sends a specification: fabric, measurements, price in ₦ and dates.</li><li>Your order is created only when you confirm it.</li></ol></div>
+        </aside>
+      </sc-if>
+    </div>
+  </main>
+  <sc-if value="{{ mobileActions }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:none;background:#FAF6EE;border-top:1px solid #E6DFD0;padding:12px 20px;display:flex;gap:10px"><button style="flex:0 0 auto;height:52px;padding:0 18px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">{{ backLabel }}</button><button style="flex:1;height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600">{{ nextLabel }}</button></div>
+  </sc-if>
+  <sc-if value="{{ mobileNav }}"><dc-import name="MGNav" kind="mobileBottom" active="requests" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;details&quot;,&quot;errors&quot;,&quot;measurements&quot;,&quot;submitted&quot;],&quot;default&quot;:&quot;details&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const s = this.props.state ?? 'details';
+    const d = vp === 'desktop', m = vp === 'mobile';
+    const err = s === 'errors', meas = s === 'measurements', sub = s === 'submitted';
+    const stepIdx = meas ? 1 : 0;
+    const steps = ['Outfit details', 'Measurements', 'Review & send'].map((label, i) => ({
+      n: i + 1, label, current: i === stepIdx ? 'step' : 'false',
+      bar: i <= stepIdx ? '#1F4D3A' : '#DDD5C5', weight: i === stepIdx ? 600 : 500, color: i <= stepIdx ? '#2B2B2B' : '#5E5B55'
+    }));
+    const measures = [
+      { label: 'Bust', value: '94', open: true, help: 'Wrap the tape around the fullest part of the bust, under the arms, keeping it level across your back.' },
+      { label: 'Waist', value: '76' }, { label: 'Hip', value: '102' }, { label: 'Shoulder width', value: '39' },
+      { label: 'Sleeve length', value: '', unsure: true }, { label: 'Buba length', value: '68' },
+      { label: 'Iro length (waist to floor)', value: '104' }, { label: 'Head circumference', value: '56' }
+    ].map(x => ({ ...x, open: !!x.open, unsure: !!x.unsure, border: x.unsure ? '1.5px solid #C08A2E' : '1px solid #E6DFD0' }));
+    return {
+      desktop: d, mobile: m, notSubmitted: !sub, isErrors: err, noErrors: !err, isDetailsStep: s === 'details' || err,
+      isMeasure: meas, isSubmitted: sub,
+      heading: meas ? 'Your measurements' : 'Describe your outfit',
+      steps, measures,
+      errBorder: err ? '2px solid #B3412A' : '1px solid #8F8778', errAttr: err ? 'true' : 'false',
+      descVal: err ? '' : 'Coral aso-oke iro and buba for my traditional engagement on 12 December, like the piece in your portfolio but with a deeper V neckline and bell sleeves. I’d like a matching ipele and a fan-style gele. Gold weft please, no sequins.',
+      qtyVal: err ? '0' : '1', needVal: err ? '02/11/2026' : '12/12/2026',
+      refs: [{ src: 'images/bride-cream-iro-gele.jpg', alt: 'Reference 1, champagne iro and buba' }, { src: 'images/maroon-iro-gele.jpg', alt: 'Reference 2, wine gele' }],
+      desktopActions: d && !sub, mobileActions: m && !sub, mobileNav: m && sub,
+      backLabel: meas ? 'Back' : 'Save draft', nextLabel: meas ? 'Review request' : 'Continue to measurements'
+    };
+  }
+}
+</script>
+</body>
+</html>

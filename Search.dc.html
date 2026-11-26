@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Search results" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="discover" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px) clamp(40px,5cqi,80px);display:flex;flex-direction:column;gap:clamp(18px,2.2cqi,28px)">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.6cqi,52px);line-height:1.05;font-weight:600;color:#2B2B2B">Find a designer</h1>
+        <p role="status" style="margin:0;font-size:15px;color:#5E5B55">{{ countLabel }}</p>
+      </div>
+      <form role="search" style="display:flex;flex-direction:column;gap:8px;max-width:720px">
+        <label for="sq" style="font-size:14px;font-weight:600;color:#2B2B2B">Search designers or specialties</label>
+        <div style="display:flex;gap:8px">
+          <input id="sq" type="search" value="aso-ebi" style="flex:1;min-width:0;height:48px;padding:0 16px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)">
+          <button type="submit" aria-label="Search" style="flex:none;width:48px;height:48px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg></button>
+        </div>
+      </form>
+      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:8px">
+            <button aria-expanded="false" style="flex:1;height:44px;border:1px solid #1F4D3A;border-radius:12px;background:#FFFFFF;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"></path></svg>Filters · {{ filterCount }}</button>
+            <button style="height:44px;padding:0 16px;border:0;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:underline;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Reset</button>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ applied }}" as="a" hint-placeholder-count="2"><button aria-label="Remove filter {{ a }}" style="min-height:44px;padding:0 10px 0 14px;border:0;border-radius:999px;background:#1F4D3A;color:#FAF6EE;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ a }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 7l10 10M17 7 7 17"></path></svg></button></sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <div style="display:flex;gap:40px;align-items:flex-start">
+        <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+          <aside aria-label="Filters" style="flex:0 0 280px;background:#FFFFFF;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:22px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06)">
+            <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#2B2B2B">Filters</h2><button style="height:44px;padding:0 10px;border:0;border-radius:10px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;text-decoration:underline;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Reset</button></div>
+            <sc-for list="{{ selects }}" as="f" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:6px"><label style="font-size:14px;font-weight:600;color:#2B2B2B">{{ f.label }}</label>
+                <div style="position:relative"><select style="width:100%;height:48px;padding:0 40px 0 14px;appearance:none;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;color:#2B2B2B;cursor:pointer" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><option>{{ f.value }}</option></select><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A4A48" stroke-width="2" style="position:absolute;right:14px;top:15px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg></div>
+              </div>
+            </sc-for>
+            <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:4px"><legend style="font-size:14px;font-weight:600;color:#2B2B2B;margin-bottom:6px;padding:0">Availability</legend>
+              <sc-for list="{{ avail }}" as="v" hint-placeholder-count="3"><label style="min-height:44px;display:flex;align-items:center;gap:12px;font-size:15px;color:#2B2B2B;cursor:pointer"><span style="flex:none;width:20px;height:20px;border-radius:50%;border:2px solid {{ v.ring }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:50%;background:{{ v.dot }}"></span></span>{{ v.label }}</label></sc-for>
+            </fieldset>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:#5E5B55">Location matches each designer’s declared service area. We never use your device location.</p>
+          </aside>
+        </sc-if>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px">
+          <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span style="font-size:14px;color:#5E5B55;margin-right:4px">Applied:</span>
+              <sc-for list="{{ applied }}" as="a" hint-placeholder-count="2"><button aria-label="Remove filter {{ a }}" style="min-height:40px;padding:0 10px 0 14px;border:0;border-radius:999px;background:#1F4D3A;color:#FAF6EE;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ a }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 7l10 10M17 7 7 17"></path></svg></button></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isDefault }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:24px">
+              <sc-for list="{{ designers }}" as="d" hint-placeholder-count="6"><dc-import name="DesignerCard" designer="{{ d }}" layout="strip" hint-size="100%,470px"></dc-import></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isLoading }}">
+            <div aria-busy="true" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:24px">
+              <sc-for list="{{ skeletons }}" as="s" hint-placeholder-count="3"><div style="background:#FFFFFF;border-radius:16px;overflow:hidden;display:flex;flex-direction:column"><span style="height:180px;background:#E9E2D3"></span><div style="padding:18px 20px;display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:12px;align-items:center"><span style="width:48px;height:48px;border-radius:50%;background:#EFE9DD"></span><div style="flex:1;display:flex;flex-direction:column;gap:8px"><span style="height:16px;width:70%;border-radius:6px;background:#EFE9DD"></span><span style="height:12px;width:45%;border-radius:6px;background:#EFE9DD"></span></div></div><div style="display:flex;gap:6px"><span style="height:26px;width:84px;border-radius:999px;background:#F3EDE1"></span><span style="height:26px;width:64px;border-radius:999px;background:#F3EDE1"></span></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px"><span style="height:64px;border-radius:8px;background:#F3EDE1"></span><span style="height:64px;border-radius:8px;background:#F3EDE1"></span><span style="height:64px;border-radius:8px;background:#F3EDE1"></span></div></div></div></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isEmpty }}">
+            <div style="background:#FFFFFF;border-radius:16px;padding:clamp(28px,4cqi,56px);display:flex;flex-direction:column;align-items:flex-start;gap:14px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06)">
+              <span style="width:56px;height:56px;border-radius:50%;background:#F3EDE1;display:flex;align-items:center;justify-content:center;color:#7A5E22"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4M8.5 11h5"></path></svg></span>
+              <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.6cqi,34px);line-height:1.15;font-weight:600;color:#2B2B2B">No designers match these filters</h2>
+              <p style="margin:0;font-size:15px;line-height:1.6;max-width:520px">No approved designer in Port Harcourt currently lists aso-ebi gowns for naming ceremonies. Try widening one filter.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">
+                <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Reset filters</button>
+                <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#CDB27A" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Search all locations</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isError }}">
+            <div role="alert" style="background:#FFFFFF;border-radius:16px;padding:clamp(28px,4cqi,56px);display:flex;flex-direction:column;align-items:flex-start;gap:14px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06)">
+              <span style="width:56px;height:56px;border-radius:50%;background:#F6E1DA;display:flex;align-items:center;justify-content:center;color:#8A2E1C"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 8v5M12 16.5v.5"></path><circle cx="12" cy="12" r="9"></circle></svg></span>
+              <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.6cqi,34px);line-height:1.15;font-weight:600;color:#2B2B2B">We couldn’t load designers</h2>
+              <p style="margin:0;font-size:15px;line-height:1.6;max-width:520px">Check your connection and try again. Your search and filters are kept.</p>
+              <button style="margin-top:6px;height:48px;padding:0 22px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"></path></svg>Try again</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showPager }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;justify-content:center;padding-top:8px"><button style="height:48px;padding:0 24px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Show more designers</button></div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="discover" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;default&quot;,&quot;loading&quot;,&quot;empty&quot;,&quot;error&quot;],&quot;default&quot;:&quot;default&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const state = this.props.state ?? 'default';
+    const empty = state === 'empty';
+    const designers = [
+      { businessName: 'Atelier Adùnní', initials: 'AA', avatarTone: '#E8D3B0', serviceLocation: 'Lekki, Lagos', rating: '4.9', reviewCount: 38, specializations: ['Bridal aso-ebi', 'Iro and buba', 'Gele'], availability: 'Accepting requests', images: ['images/bride-cream-iro-gele.jpg', 'images/maroon-iro-gele.jpg', 'images/gold-lace-gele.jpg', 'images/agbada-trio.jpg'], captions: ['Coral aso-ebi, bridal party'] },
+      { businessName: 'Ọ̀ṣun Threads', initials: 'ỌT', avatarTone: '#EBD9B4', serviceLocation: 'Wuse II, Abuja', rating: '4.7', reviewCount: 12, specializations: ['Aso-ebi gown', 'Corset bodice'], availability: 'Limited slots in December', limited: true, images: ['images/gold-lace-gele.jpg', 'images/brown-gown-oneshoulder.jpg', 'images/brown-gown-cross.jpg', 'images/beige-jumpsuit.jpg'], captions: ['Gold lace aso-ebi gown'] },
+      { businessName: 'Ebube Designs', initials: 'ED', avatarTone: '#D8CBB8', serviceLocation: 'Ikeja, Lagos', rating: '4.6', reviewCount: 19, specializations: ['Isiagu', 'Wrapper sets', 'Aso-ebi'], availability: 'Accepting requests', images: ['images/ankara-couple.jpg', 'images/ankara-two-piece.jpg', 'images/ankara-jumpsuit.jpg', 'images/ankara-peplum.jpg'], captions: ['Red isiagu, igba nkwu'] },
+      { businessName: 'Garden City Tailoring', initials: 'GC', avatarTone: '#C9D3C4', serviceLocation: 'GRA Phase 2, Port Harcourt', rating: '', reviewCount: 0, specializations: ['Kaftan', 'Senator wear', 'Family aso-ebi'], availability: 'Accepting requests', images: ['images/navy-kaftan-set.jpg', 'images/beige-green-shirt.jpg', 'images/ankara-mens-set.jpg', 'images/group.jpg'], captions: ['Matching family kaftans'] },
+      { businessName: 'Zainab Ahmed Studio', initials: 'ZA', avatarTone: '#E2CFD6', serviceLocation: 'Maitama, Abuja', rating: '5.0', reviewCount: 7, specializations: ['Aso-ebi gown', 'Evening jumpsuits'], availability: 'Limited slots in December', limited: true, images: ['images/brown-gown-cross.jpg', 'images/beige-jumpsuit.jpg', 'images/brown-gown-oneshoulder.jpg', 'images/corset-trousers.jpg'], captions: ['Plum beaded kaftan'] },
+      { businessName: 'Ìyá Ìbejì Couture', initials: 'IC', avatarTone: '#E6D2C2', serviceLocation: 'Yaba, Lagos', rating: '4.8', reviewCount: 31, specializations: ['Iro and buba', 'Gele', 'Naming ceremony'], availability: 'Accepting requests', images: ['images/maroon-iro-gele.jpg', 'images/ankara-wrap-dress.jpg', 'images/bride-cream-iro-gele.jpg', 'images/gold-lace-gele.jpg'], captions: ['Ivory iro and buba, naming day'] }
+    ];
+    const applied = empty ? ['Naming ceremony', 'Aso-ebi gown', 'Port Harcourt'] : ['Aso-ebi gown', 'Accepting requests'];
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile',
+      isDefault: state === 'default', isLoading: state === 'loading', isEmpty: empty, isError: state === 'error',
+      showPager: state === 'default',
+      countLabel: state === 'default' ? '6 of 14 designers for “aso-ebi”' : state === 'loading' ? 'Searching designers…' : empty ? '0 designers for “aso-ebi”' : 'Results unavailable',
+      designers, skeletons: vp === 'mobile' ? [1, 2] : [1, 2, 3, 4, 5, 6], applied, filterCount: applied.length,
+      selects: [
+        { label: 'Occasion', value: empty ? 'Naming ceremony' : 'Any occasion' },
+        { label: 'Garment category', value: 'Aso-ebi gown' },
+        { label: 'Service location', value: empty ? 'Port Harcourt' : 'Any location' }
+      ],
+      avail: [
+        { label: 'Any availability', ring: empty ? '#1F4D3A' : '#8F8778', dot: empty ? '#1F4D3A' : 'transparent' },
+        { label: 'Accepting requests', ring: empty ? '#8F8778' : '#1F4D3A', dot: empty ? 'transparent' : '#1F4D3A' },
+        { label: 'Limited slots', ring: '#8F8778', dot: 'transparent' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

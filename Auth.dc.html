@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Auth" style="container-type:inline-size;display:flex;min-height:100%;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+    <aside style="flex:0 0 46%;position:relative;background-color:#1F4D3A;display:flex;flex-direction:column;justify-content:space-between;padding:48px 56px;color:#FAF6EE;overflow:hidden">
+      <img src="images/black-gold-agbada.jpg" alt="Man in black and gold embroidered agbada" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,51,42,.55) 0%,rgba(20,51,42,.2) 40%,rgba(20,51,42,.85) 100%)"></div>
+      <a href="#" style="position:relative;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;letter-spacing:.16em;color:#FAF6EE;text-decoration:none;min-height:44px;display:flex;align-items:center;width:fit-content">MY GARB</a>
+      <div style="position:relative;display:flex;flex-direction:column;gap:14px;max-width:460px">
+        
+        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:40px;line-height:1.1;font-weight:500">“Every stitch agreed before the first cut.”</p>
+        <span style="font-size:15px;color:rgba(250,246,238,.88)">Approved designers in Lagos, Abuja and Port Harcourt.</span>
+      </div>
+    </aside>
+  </sc-if>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;overflow-y:auto">
+    <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+      <header style="background:#1F4D3A;height:56px;display:flex;align-items:center;padding:0 6px;gap:4px;flex:none"><button aria-label="Back" style="width:44px;height:44px;border:0;background:transparent;color:#FAF6EE;display:flex;align-items:center;justify-content:center;border-radius:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.16em;color:#FAF6EE">MY GARB</span></header>
+    </sc-if>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:clamp(24px,5cqi,72px) clamp(20px,5cqi,72px)">
+      <div style="width:100%;max-width:440px;display:flex;flex-direction:column;gap:22px">
+        <sc-if value="{{ isSignin }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:8px"><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(36px,3.4cqi,48px);line-height:1.05;font-weight:600;color:#2B2B2B">Welcome back</h1><p style="margin:0;font-size:15px">Sign in to manage your requests, messages and orders.</p></div>
+          <sc-if value="{{ showContext }}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:12px;align-items:flex-start;background:#F3EDE1;border-radius:12px;padding:14px 16px"><span style="flex:none;width:36px;height:36px;border-radius:50%;background:#E8D3B0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:#2B2B2B">AA</span><p style="margin:0;font-size:14px;line-height:1.5;color:#2B2B2B">Sign in to send your request to <strong style="font-weight:600">Atelier Adùnní</strong>. Your draft is saved and we’ll bring you straight back.</p></div></sc-if>
+          <sc-if value="{{ isError }}"><div role="alert" style="display:flex;gap:10px;align-items:flex-start;background:#F6E1DA;border-radius:12px;padding:14px 16px;color:#8A2E1C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5v.5"></path></svg><span style="font-size:14px;line-height:1.5"><strong style="font-weight:600">Email or password is incorrect.</strong> Check both and try again, or reset your password.</span></div></sc-if>
+          <form style="display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="em" style="font-size:14px;font-weight:600;color:#2B2B2B">Email</label><input id="em" type="email" autocomplete="email" value="{{ emailVal }}" style="height:50px;padding:0 14px;border:{{ fieldBorder }};border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;justify-content:space-between;align-items:center"><label for="pw" style="font-size:14px;font-weight:600;color:#2B2B2B">Password</label><a href="#" style="font-size:14px;font-weight:600;color:#1F4D3A;min-height:44px;display:flex;align-items:center;margin:-12px 0">Forgot password?</a></div>
+              <div style="position:relative"><input id="pw" type="password" autocomplete="current-password" value="{{ pwVal }}" aria-invalid="{{ ariaInvalid }}" style="width:100%;box-sizing:border-box;height:50px;padding:0 60px 0 14px;border:{{ fieldBorder }};border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><button type="button" style="position:absolute;right:3px;top:3px;height:44px;padding:0 12px;border:0;border-radius:10px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1">Show</button></div>
+            </div>
+            <button type="submit" style="height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Sign in</button>
+          </form>
+          <p style="margin:0;font-size:15px;text-align:center">New to MY GARB? <a href="#" style="font-weight:600;color:#1F4D3A;display:inline-flex;align-items:center;min-height:44px;padding:0 4px">Create an account</a></p>
+        </sc-if>
+        <sc-if value="{{ isRegister }}">
+          <div style="display:flex;flex-direction:column;gap:8px"><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(36px,3.4cqi,48px);line-height:1.05;font-weight:600;color:#2B2B2B">Create your account</h1><p style="margin:0;font-size:15px">Already registered? <a href="#" style="font-weight:600;color:#1F4D3A;display:inline-flex;align-items:center;min-height:44px;padding:0 4px">Sign in</a></p></div>
+          <form style="display:flex;flex-direction:column;gap:18px">
+            <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px"><legend style="font-size:14px;font-weight:600;color:#2B2B2B;padding:0;margin-bottom:10px">I’m joining as</legend>
+              <sc-for list="{{ roles }}" as="r" hint-placeholder-count="2"><label style="display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:14px;background:#FFFFFF;border:{{ r.border }};cursor:pointer;box-shadow:0 1px 2px rgba(20,51,42,.05)"><span style="flex:none;margin-top:2px;width:22px;height:22px;border-radius:50%;border:2px solid {{ r.ring }};display:flex;align-items:center;justify-content:center"><span style="width:11px;height:11px;border-radius:50%;background:{{ r.dot }}"></span></span><span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:600;color:#2B2B2B">{{ r.title }}</span><span style="font-size:14px;line-height:1.5;color:#5E5B55">{{ r.desc }}</span></span></label></sc-for>
+            </fieldset>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="nm" style="font-size:14px;font-weight:600;color:#2B2B2B">{{ nameLabel }}</label><input id="nm" value="{{ nameVal }}" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="rem" style="font-size:14px;font-weight:600;color:#2B2B2B">Email</label><input id="rem" type="email" value="{{ regEmail }}" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><span style="font-size:13px;color:#5E5B55">We’ll send a link to verify this address.</span></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="rpw" style="font-size:14px;font-weight:600;color:#2B2B2B">Password</label><input id="rpw" type="password" value="Adire2026" aria-describedby="pwh" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><span id="pwh" style="font-size:13px;color:#2E5A45;display:flex;align-items:center;gap:6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-10"></path></svg>At least 8 characters</span></div>
+            <button type="submit" style="height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Create account</button>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:#5E5B55;text-align:center">By creating an account you agree to the <a href="#" style="color:#1F4D3A;display:inline-flex;align-items:center;min-height:44px">pilot terms</a> and <a href="#" style="color:#1F4D3A;display:inline-flex;align-items:center;min-height:44px">privacy notice</a>.</p>
+          </form>
+        </sc-if>
+        <sc-if value="{{ isRecover }}">
+          <div style="display:flex;flex-direction:column;gap:8px"><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(36px,3.4cqi,48px);line-height:1.05;font-weight:600;color:#2B2B2B">Reset your password</h1><p style="margin:0;font-size:15px;line-height:1.6">Enter the email you registered with and we’ll send a recovery link.</p></div>
+          <form style="display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="rcm" style="font-size:14px;font-weight:600;color:#2B2B2B">Email</label><input id="rcm" type="email" value="folake.adeyemi@gmail.com" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"></div>
+            <button type="submit" style="height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Send recovery link</button>
+          </form>
+          <a href="#" style="min-height:44px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;color:#1F4D3A">Back to sign in</a>
+        </sc-if>
+        <sc-if value="{{ isSent }}">
+          <span style="width:64px;height:64px;border-radius:50%;background:#DDEBE2;display:flex;align-items:center;justify-content:center;color:#1F4D3A"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg></span>
+          <div role="status" style="display:flex;flex-direction:column;gap:10px"><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(36px,3.4cqi,48px);line-height:1.05;font-weight:600;color:#2B2B2B">Check your inbox</h1><p style="margin:0;font-size:15px;line-height:1.6">If an account exists for <strong style="font-weight:600;color:#2B2B2B">folake.adeyemi@gmail.com</strong>, we’ve sent a recovery link. It works once and expires in 30 minutes.</p></div>
+          <button style="height:52px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#CDB27A" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Resend link</button>
+          <a href="#" style="min-height:44px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;color:#1F4D3A">Back to sign in</a>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;signin&quot;,&quot;signinError&quot;,&quot;register&quot;,&quot;recover&quot;,&quot;recoverSent&quot;],&quot;default&quot;:&quot;signin&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;customer&quot;,&quot;designer&quot;],&quot;default&quot;:&quot;customer&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const s = this.props.state ?? 'signin';
+    const designer = (this.props.role ?? 'customer') === 'designer';
+    const err = s === 'signinError';
+    const on = { border: '2px solid #1F4D3A', ring: '#1F4D3A', dot: '#1F4D3A' };
+    const off = { border: '1px solid #D6CDBB', ring: '#8F8778', dot: 'transparent' };
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile',
+      isSignin: s === 'signin' || err, isError: err, showContext: s === 'signin',
+      isRegister: s === 'register', isRecover: s === 'recover', isSent: s === 'recoverSent',
+      emailVal: err ? 'folake.adeyemi@gmail.com' : '', pwVal: err ? 'password1' : '',
+      fieldBorder: err ? '2px solid #B3412A' : '1px solid #8F8778', ariaInvalid: err ? 'true' : 'false',
+      nameLabel: designer ? 'Business name' : 'Full name', nameVal: designer ? 'Garden City Tailoring' : 'Folake Adeyemi',
+      regEmail: designer ? 'chidi@gardencitytailoring.ng' : 'folake.adeyemi@gmail.com',
+      roles: [
+        { title: 'Customer', desc: 'Find a designer and request a custom outfit for your occasion.', ...(designer ? off : on) },
+        { title: 'Designer', desc: 'Show your work and receive requests. Profiles are reviewed before they’re published.', ...(designer ? on : off) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

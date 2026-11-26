@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Profile" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="profile" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:960px;margin:0 auto;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px) clamp(32px,5cqi,80px);display:flex;flex-direction:column;gap:clamp(18px,2.4cqi,28px)">
+      <div style="display:flex;gap:16px;align-items:center"><span style="flex:none;width:72px;height:72px;border-radius:50%;background:#D9C08C;color:#2B2B2B;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600">FA</span><div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.4cqi,46px);line-height:1.05;font-weight:600;color:#2B2B2B">Folake Adeyemi</h1><span style="font-size:14px;color:#5E5B55">Customer · Lekki, Lagos</span></div></div>
+      <sc-if value="{{ isSaved }}"><div role="status" style="display:flex;gap:10px;align-items:center;background:#DDEBE2;color:#1F4D3A;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 12 5 5 9-10"></path></svg>Measurements saved. Existing orders keep the measurements you agreed.</div></sc-if>
+      <section style="background:#FFFFFF;border-radius:16px;padding:clamp(18px,2.4cqi,28px);display:flex;flex-direction:column;gap:18px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.05)">
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#2B2B2B">Account</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+          <div style="display:flex;flex-direction:column;gap:6px"><label for="pn" style="font-size:14px;font-weight:600;color:#2B2B2B">Full name</label><input id="pn" value="Folake Adeyemi" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B;min-width:0" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><label for="pe" style="font-size:14px;font-weight:600;color:#2B2B2B">Email</label><input id="pe" value="folake.adeyemi@gmail.com" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B;min-width:0" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)"><span style="font-size:13px;color:#2E5A45">Verified</span></div>
+        </div>
+        <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:4px"><legend style="font-size:14px;font-weight:600;color:#2B2B2B;padding:0;margin-bottom:6px">Contact preference</legend>
+          <sc-for list="{{ prefs }}" as="p" hint-placeholder-count="2"><label style="min-height:44px;display:flex;align-items:center;gap:12px;font-size:15px;color:#2B2B2B;cursor:pointer"><span style="flex:none;width:20px;height:20px;border-radius:50%;border:2px solid {{ p.ring }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:50%;background:{{ p.dot }}"></span></span>{{ p.label }}</label></sc-for>
+        </fieldset>
+      </section>
+      <section style="background:#FFFFFF;border-radius:16px;padding:clamp(18px,2.4cqi,28px);display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.05)">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#2B2B2B">My measurements</h2><span style="display:flex;align-items:center;gap:6px;font-size:13px;color:#5E5B55"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Private · shared only with designers you send a request to</span></div>
+        <dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr));gap:12px 20px">
+          <sc-for list="{{ meas }}" as="m" hint-placeholder-count="8"><div style="display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid #EFE9DD"><dt style="font-size:13px;color:#5E5B55">{{ m.k }}</dt><dd style="margin:0;font-size:16px;font-weight:600;color:#2B2B2B">{{ m.v }}</dd></div></sc-for>
+        </dl>
+        <span style="font-size:13px;color:#5E5B55">Self-measured · last updated 5 Nov 2026 · values in cm</span>
+        <button style="align-self:flex-start;height:48px;padding:0 20px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Edit measurements</button>
+      </section>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center">
+        <a href="#" style="min-height:44px;display:flex;align-items:center;font-size:15px;font-weight:600;color:#1F4D3A">Change password</a>
+        <button style="height:48px;padding:0 22px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Log out</button>
+      </div>
+    </div>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="profile" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;default&quot;,&quot;saved&quot;],&quot;default&quot;:&quot;default&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile', isSaved: (this.props.state ?? 'default') === 'saved',
+      prefs: [{ label: 'In-app messages only', ring: '#1F4D3A', dot: '#1F4D3A' }, { label: 'In-app, plus email for order updates', ring: '#8F8778', dot: 'transparent' }],
+      meas: [['Bust', '94'], ['Waist', '76'], ['Hip', '102'], ['Shoulder width', '39'], ['Sleeve length', '58'], ['Buba length', '68'], ['Iro length', '104'], ['Head circumference', '56']].map(([k, v]) => ({ k, v: v + ' cm' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

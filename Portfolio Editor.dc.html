@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Portfolio editor" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="profile" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px) clamp(32px,5cqi,80px);display:flex;flex-direction:column;gap:clamp(18px,2.4cqi,28px)">
+      <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px">
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A5E22">Atelier Adùnní · Designer</span><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.6cqi,50px);line-height:1.05;font-weight:600;color:#2B2B2B">Your portfolio</h1><span style="font-size:14px;color:#5E5B55">6 published · 1 hidden · shown on your public profile in this order</span></div>
+          <button style="height:52px;padding:0 22px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Add portfolio item</button>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,{{ colMin }}),1fr));gap:clamp(12px,2cqi,20px)">
+          <sc-for list="{{ items }}" as="it" hint-placeholder-count="7">
+            <li style="background:#FFFFFF;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(20,51,42,.06),0 8px 22px rgba(20,51,42,.06)">
+              <div style="position:relative;aspect-ratio:4 / 5;background:#EFE9DD"><img src="{{ it.img }}" alt="{{ it.title }}" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;opacity:{{ it.op }}"><sc-if value="{{ it.hidden }}"><span style="position:absolute;top:10px;left:10px;font-size:12px;font-weight:600;color:#2B2B2B;background:rgba(250,246,238,.95);padding:4px 10px;border-radius:999px">Hidden</span></sc-if></div>
+              <div style="padding:12px 14px;display:flex;flex-direction:column;gap:4px;flex:1"><span style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#5E5B55">{{ it.cat }}</span><span style="font-family:'Cormorant Garamond',serif;font-size:19px;line-height:1.2;font-weight:600;color:#2B2B2B">{{ it.title }}</span><span style="font-size:13px;color:#5E5B55">{{ it.est }}</span></div>
+              <div style="display:flex;border-top:1px solid #EFE9DD"><button style="flex:1;height:44px;border:0;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:inset 0 0 0 2px #1F4D3A">Edit</button><button aria-label="More actions for {{ it.title }}" style="width:48px;height:44px;border:0;border-left:1px solid #EFE9DD;background:transparent;color:#2B2B2B;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:inset 0 0 0 2px #1F4D3A"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"></circle><circle cx="12" cy="12" r="1.8"></circle><circle cx="19" cy="12" r="1.8"></circle></svg></button></div>
+            </li>
+          </sc-for>
+        </ul>
+      </sc-if>
+      <sc-if value="{{ isEdit }}">
+        <div style="display:flex;flex-direction:column;gap:6px"><a href="#" style="min-height:44px;width:fit-content;display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#1F4D3A;text-decoration:none"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Your portfolio</a><h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.6cqi,50px);line-height:1.05;font-weight:600;color:#2B2B2B">New portfolio item</h1></div>
+        <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4cqi,48px);align-items:flex-start">
+          <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:14px;font-weight:600;color:#2B2B2B">Images <span style="font-weight:400;color:#5E5B55">(1–6; first is the cover)</span></span>
+            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+              <div style="position:relative;grid-column:span 2;grid-row:span 2;border-radius:12px;overflow:hidden;background:#EFE9DD"><img src="images/agbada-trio.jpg" alt="Cover: three men in matching agbada" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block"><span style="position:absolute;top:8px;left:8px;font-size:12px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:999px">Cover</span></div>
+              <img src="images/agbada-family-wide.jpg" alt="Family in agbada" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block">
+              <sc-if value="{{ uploadErr }}"><div role="alert" style="aspect-ratio:1;border-radius:12px;border:1.5px solid #B3412A;background:#FBEDE8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;color:#8A2E1C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5v.5"></path></svg><span style="font-size:11px;line-height:1.3;font-weight:600">Too large (9 MB)</span></div></sc-if>
+              <sc-if value="{{ noUploadErr }}" hint-placeholder-val="{{ true }}"><img src="images/brown-agbada.jpg" alt="Brown agbada detail" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block"></sc-if>
+              <button style="aspect-ratio:1;border-radius:12px;border:1.5px dashed #8F8778;background:#FFFFFF;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Add</button>
+            </div>
+            <sc-if value="{{ uploadErr }}"><span style="font-size:13px;line-height:1.5;color:#8A2E1C">“IMG_4420.HEIC” wasn’t added: images must be JPEG, PNG or WebP under 5 MB.</span></sc-if>
+            <sc-if value="{{ noUploadErr }}"><span style="font-size:13px;color:#5E5B55">JPEG, PNG or WebP, up to 5 MB. Only show work you made, with clients’ permission.</span></sc-if>
+          </div>
+          <form style="flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="pt" style="font-size:14px;font-weight:600;color:#2B2B2B">Title</label><input id="pt" value="Matching agbada for the groom’s men" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B;min-width:0"></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px">
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="pc" style="font-size:14px;font-weight:600;color:#2B2B2B">Category</label><div style="position:relative"><select id="pc" style="width:100%;height:50px;padding:0 40px 0 14px;appearance:none;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B"><option>Agbada</option></select><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A4A48" stroke-width="2" style="position:absolute;right:14px;top:16px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="po" style="font-size:14px;font-weight:600;color:#2B2B2B">Occasion <span style="font-weight:400;color:#5E5B55">(optional)</span></label><div style="position:relative"><select id="po" style="width:100%;height:50px;padding:0 40px 0 14px;appearance:none;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B"><option>Wedding</option></select><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A4A48" stroke-width="2" style="position:absolute;right:14px;top:16px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg></div></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="pd" style="font-size:14px;font-weight:600;color:#2B2B2B">Description</label><textarea id="pd" rows="4" style="padding:12px 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.55;color:#2B2B2B;resize:vertical">Three agbada sets in ivory brocade with gold hand embroidery at the neck and chest, made for the groom and his brothers for a Lagos wedding. Matching fila and sokoto.</textarea></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="pe" style="font-size:14px;font-weight:600;color:#2B2B2B">Price estimate (₦) <span style="font-weight:400;color:#5E5B55">(optional)</span></label><input id="pe" value="₦260,000 per set" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;color:#2B2B2B;min-width:0"><span style="font-size:13px;color:#5E5B55">Shown with an “Estimate” label. The real price is agreed per request.</span></div>
+            <label style="min-height:44px;display:flex;align-items:center;gap:12px;font-size:15px;color:#2B2B2B"><span style="flex:none;width:44px;height:26px;border-radius:999px;background:#1F4D3A;position:relative"><span style="position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:#FFFFFF"></span></span>Show on my public profile</label>
+            <div style="display:flex;flex-wrap:wrap;gap:10px"><button style="flex:1 1 180px;height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Save item</button><button style="flex:0 1 140px;height:52px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1">Cancel</button></div>
+          </form>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isEmpty }}">
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.6cqi,50px);line-height:1.05;font-weight:600;color:#2B2B2B">Your portfolio</h1>
+        <div style="background:#FFFFFF;border-radius:16px;padding:clamp(28px,4cqi,56px);display:flex;flex-direction:column;align-items:flex-start;gap:14px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#F3EDE1;display:flex;align-items:center;justify-content:center;color:#7A5E22"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="m3 16 5-5 4 4 3-3 6 6"></path></svg></span>
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.6cqi,34px);font-weight:600;color:#2B2B2B">Add your first pieces</h2>
+          <p style="margin:0;font-size:15px;line-height:1.6;max-width:520px">Customers choose designers by their work. Add at least 4 items, each with clear photos, to submit your profile for approval.</p>
+          <button style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Add portfolio item</button>
+        </div>
+      </sc-if>
+    </div>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="profile" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;list&quot;,&quot;edit&quot;,&quot;uploadError&quot;,&quot;empty&quot;],&quot;default&quot;:&quot;list&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const s = this.props.state ?? 'list';
+    const items = [
+      ['bride-cream-iro-gele.jpg', 'Iro and buba', 'Champagne aso-oke iro and buba with gele', 'Estimate ₦450,000 – ₦620,000'],
+      ['gold-lace-gele.jpg', 'Aso-ebi gown', 'Gold lace aso-ebi, bridal party', 'Estimate ₦180,000 per gown'],
+      ['maroon-iro-gele.jpg', 'Iro and buba', 'Wine damask for the mother of the bride', 'No estimate'],
+      ['brown-gown-oneshoulder.jpg', 'Aso-ebi gown', 'One-shoulder brown gown', 'Estimate ₦150,000'],
+      ['brown-gown-cross.jpg', 'Aso-ebi gown', 'Crossover bodice gown', 'Estimate ₦165,000'],
+      ['ankara-wrap-dress.jpg', 'Ankara', 'Ankara wrap dress, owambe', 'No estimate'],
+      ['ankara-peplum.jpg', 'Ankara', 'Ankara peplum set', 'Estimate ₦70,000', 1]
+    ].map(([f, cat, title, est, h]) => ({ img: 'images/' + f, cat, title, est, hidden: !!h, op: h ? .5 : 1 }));
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile', colMin: vp === 'mobile' ? '140px' : '220px',
+      isList: s === 'list', isEdit: s === 'edit' || s === 'uploadError', isEmpty: s === 'empty',
+      uploadErr: s === 'uploadError', noUploadErr: s !== 'uploadError', items
+    };
+  }
+}
+</script>
+</body>
+</html>

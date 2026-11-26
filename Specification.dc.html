@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Specification review" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="requests" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+    <header style="background:#1F4D3A;height:56px;display:flex;align-items:center;padding:0 6px;gap:4px;flex:none;color:#FAF6EE"><button aria-label="Back to Requests" style="width:44px;height:44px;border:0;background:transparent;color:#FAF6EE;display:flex;align-items:center;justify-content:center;border-radius:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button><span style="font-size:16px;font-weight:600">Specification</span></header>
+  </sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px) clamp(32px,5cqi,80px);display:flex;flex-direction:column;gap:clamp(18px,2.4cqi,28px)">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:13px;color:#5E5B55">REQ-2026-0418 · Atelier Adùnní</span>
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.6cqi,52px);line-height:1.05;font-weight:600;color:#2B2B2B;text-wrap:balance">Coral aso-oke iro and buba with gele</h1>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center"><dc-import name="StatusChip" status="{{ chip }}" hint-size="170px,28px"></dc-import><span style="font-size:14px;color:#5E5B55">Specification v2 · sent 5 Nov 2026, 08:20</span></div>
+      </div>
+
+      <sc-if value="{{ isSuperseded }}">
+        <div role="alert" style="background:#F6E1DA;border-radius:14px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;color:#8A2E1C">
+          <div style="display:flex;gap:10px;align-items:flex-start;flex:1 1 320px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5v.5"></path></svg><span style="font-size:14px;line-height:1.55"><strong style="font-weight:600">Adùnní sent version 3 while you were reviewing.</strong> Your confirmation of v2 wasn’t recorded and no order was created. Check v3 before confirming.</span></div>
+          <button style="height:48px;padding:0 20px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #F6E1DA,0 0 0 4px #1F4D3A">Review version 3</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isConfirmed }}">
+        <div role="status" style="background:#1F4D3A;color:#FAF6EE;border-radius:16px;padding:clamp(20px,3cqi,32px);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between">
+          <div style="display:flex;flex-direction:column;gap:6px;flex:1 1 320px"><span style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.6cqi,34px);font-weight:600">Order ORD-2026-0201 created</span><span style="font-size:15px;line-height:1.55;color:rgba(250,246,238,.9)">You confirmed specification v2. These terms are now locked; changes need a change request both of you agree to.</span></div>
+          <button style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#CDB27A" style-focus="outline:none;box-shadow:0 0 0 2px #1F4D3A,0 0 0 4px #FAF6EE">Track your order</button>
+        </div>
+      </sc-if>
+
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4cqi,48px);align-items:flex-start">
+        <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:18px">
+          <div style="background:#F3EAD3;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:8px"><span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4A16">Changed since v1</span>
+            <sc-for list="{{ changes }}" as="c" hint-placeholder-count="2"><span style="font-size:14px;line-height:1.5;color:#2B2B2B"><strong style="font-weight:600">{{ c.k }}:</strong> <span style="text-decoration:line-through;color:#5E5B55">{{ c.from }}</span> → {{ c.to }}</span></sc-for>
+          </div>
+          <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="4">
+            <section style="background:#FFFFFF;border-radius:16px;padding:clamp(18px,2.2cqi,24px);display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.05)">
+              <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#2B2B2B">{{ sec.title }}</h2>
+              <sc-if value="{{ sec.hasText }}"><p style="margin:0;font-size:15px;line-height:1.65">{{ sec.text }}</p></sc-if>
+              <sc-if value="{{ sec.hasRows }}"><dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:12px 20px"><sc-for list="{{ sec.rows }}" as="r" hint-placeholder-count="4"><div style="display:flex;flex-direction:column;gap:2px;padding-bottom:10px;border-bottom:1px solid #EFE9DD"><dt style="font-size:13px;color:#5E5B55">{{ r.k }}</dt><dd style="margin:0;font-size:15px;font-weight:600;color:#2B2B2B">{{ r.v }}</dd></div></sc-for></dl></sc-if>
+              <sc-if value="{{ sec.hasNote }}"><span style="font-size:13px;line-height:1.5;color:#2E5A45;display:flex;gap:6px;align-items:flex-start"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="flex:none;margin-top:3px"><path d="m5 12 5 5 9-10"></path></svg>{{ sec.note }}</span></sc-if>
+            </section>
+          </sc-for>
+        </div>
+        <aside style="flex:1 1 340px;max-width:100%;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#FFFFFF;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 12px 32px rgba(20,51,42,.08)">
+            <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E5B55">Agreed price</span><span style="font-family:'Cormorant Garamond',serif;font-size:44px;line-height:1.05;font-weight:600;color:#2B2B2B">₦520,000</span><span style="font-size:13px;color:#5E5B55">For 1 outfit: buba, iro, ipele and gele</span></div>
+            <dl style="margin:0;display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:1px solid #EFE9DD">
+              <sc-for list="{{ dates }}" as="d" hint-placeholder-count="4"><div style="display:flex;justify-content:space-between;gap:12px;font-size:14px"><dt style="color:#5E5B55">{{ d.k }}</dt><dd style="margin:0;font-weight:600;color:#2B2B2B;text-align:right">{{ d.v }}</dd></div></sc-for>
+            </dl>
+            <sc-if value="{{ showActions }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <label style="display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:#2B2B2B;cursor:pointer;min-height:44px"><span style="flex:none;width:22px;height:22px;border-radius:6px;background:{{ boxBg }};border:2px solid {{ boxRing }};display:flex;align-items:center;justify-content:center;color:#FFFFFF;margin-top:1px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"></path></svg></span>I’ve checked the measurements, price and dates in version 2.</label>
+                <button disabled="{{ confirmDisabled }}" style="height:52px;border:0;border-radius:12px;background:{{ confirmBg }};color:{{ confirmFg }};font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="filter:brightness(.92)" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Confirm specification v2</button>
+                <button style="height:52px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#CDB27A" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Request a revision</button>
+                <a href="#" style="min-height:44px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;color:#1F4D3A">Message Adùnní</a>
+              </div>
+            </sc-if>
+          </div>
+          <p style="margin:0;font-size:13px;line-height:1.55;color:#5E5B55">Confirming creates one order with exactly these terms. Messages can’t change them later. Payment is made directly to the designer and isn’t verified by MY GARB.</p>
+        </aside>
+      </div>
+    </div>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="requests" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;default&quot;,&quot;superseded&quot;,&quot;confirmed&quot;],&quot;default&quot;:&quot;default&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const s = this.props.state ?? 'default';
+    const sup = s === 'superseded', conf = s === 'confirmed';
+    const ready = s === 'default';
+    const sec = (title, o) => ({ title, hasText: !!o.text, hasRows: !!o.rows, hasNote: !!o.note, rows: o.rows || [], ...o });
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile',
+      isSuperseded: sup, isConfirmed: conf, showActions: !conf,
+      chip: conf ? 'Converted' : 'Awaiting confirmation',
+      boxBg: ready ? '#1F4D3A' : '#FFFFFF', boxRing: ready ? '#1F4D3A' : '#8F8778',
+      confirmDisabled: sup, confirmBg: sup ? '#D8D2C4' : '#1F4D3A', confirmFg: sup ? '#5E5B55' : '#FFFFFF',
+      changes: [
+        { k: 'Ready date', from: '5 Dec 2026', to: '8 Dec 2026' },
+        { k: 'Price', from: '₦480,000', to: '₦520,000 (hand-beaded neckline added)' }
+      ],
+      sections: [
+        sec('Design', { text: 'Fitted buba with a deep V neckline, hand-beaded in coral and gold, and bell sleeves to the wrist. Wrapped iro with a matching ipele draped over the left shoulder. Fan-style gele tied on the morning of the event.' }),
+        sec('Material and fabric', { rows: [{ k: 'Fabric', v: 'Aso-oke, coral with gold weft' }, { k: 'Supplied by', v: 'Designer' }, { k: 'Lining', v: 'Cotton, designer supplies' }, { k: 'Beading', v: 'Glass beads, hand-sewn' }] }),
+        sec('Measurements · cm', { rows: [{ k: 'Bust', v: '94' }, { k: 'Waist', v: '76' }, { k: 'Hip', v: '102' }, { k: 'Shoulder width', v: '39' }, { k: 'Sleeve length', v: '58' }, { k: 'Buba length', v: '68' }, { k: 'Iro length', v: '104' }, { k: 'Head circumference', v: '56' }], note: 'Self-measured 5 Nov. Sleeve length added after a video call; reviewed by Adùnní 5 Nov.' }),
+        sec('Terms and handover', { rows: [{ k: 'Commercial terms', v: '50% before production, balance at handover' }, { k: 'Payment', v: 'Paid directly to designer' }, { k: 'Handover', v: 'Final fitting and collection, Lekki studio' }, { k: 'Fittings', v: '1, on 1 Dec' }] })
+      ],
+      dates: [
+        { k: 'Production starts', v: '10 Nov 2026' }, { k: 'Ready date', v: '8 Dec 2026' },
+        { k: 'Handover', v: '9 Dec 2026' }, { k: 'Needed by (your occasion)', v: '12 Dec 2026' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

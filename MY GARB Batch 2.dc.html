@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E4D9}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<section data-screen-label="Overview" style="padding:80px 80px 40px;font-family:'DM Sans',sans-serif;color:#4A4A48;display:flex;flex-direction:column;gap:12px;max-width:1200px">
+  <span style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7A5E22">MY GARB · Batch 2 · Mobile 360 / Desktop 1440</span>
+  <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:72px;line-height:1;font-weight:600;color:#2B2B2B">Request, agree, track, review</h1>
+  <p style="margin:0;font-size:17px;line-height:1.6;max-width:900px">Jump to: <a href="#6a">6 New request</a> · <a href="#7a">7 Requests &amp; Orders</a> · <a href="#8a">8 Specification</a> · <a href="#9a">9 Order &amp; review</a> · <a href="#10a">10 Messages</a> · <a href="#11a">11 Designer dashboard</a> · <a href="#12a">12 Profile</a> · <a href="MY GARB Screens.dc.html">Batch 1 and components</a></p>
+</section>
+
+<section data-screen-label="6 New request" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">6 · New request &amp; measurements</h2>
+  <p style="margin:0 0 28px;font-size:16px;color:#4A4A48">Request: category, occasion, description, referenceImages, quantity, neededBy, serviceLocation, measurementApproach.</p>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ reqM }}" as="f" hint-placeholder-count="4"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="New Request" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ reqD }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="New Request" vp="desktop" state="{{ f.state }}" hint-size="1440px,1300px"></dc-import></div></div></sc-for>
+  </div>
+</section>
+
+<section data-screen-label="7 Requests and Orders" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">7 · Requests &amp; Orders</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ listM }}" as="f" hint-placeholder-count="3"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Requests and Orders" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ listD }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Requests and Orders" vp="desktop" state="{{ f.state }}" hint-size="1440px,1300px"></dc-import></div></div></sc-for>
+  </div>
+</section>
+
+<section data-screen-label="8 Specification" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">8 · Specification review &amp; confirm</h2>
+  <p style="margin:0 0 28px;font-size:16px;color:#4A4A48">SpecificationVersion: design, material/fabric responsibility, measurements, quantity, agreed price (NGN), commercial terms, production dates, neededBy, handover.</p>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ specM }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Specification" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ specD }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Specification" vp="desktop" state="{{ f.state }}" hint-size="1440px,1700px"></dc-import></div></div></sc-for>
+  </div>
+</section>
+
+<section data-screen-label="9 Order" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">9 · Order tracking, issue &amp; review</h2>
+  <p style="margin:0 0 28px;font-size:16px;color:#4A4A48">Order: Confirmed → In production → Ready → Handed over → Completed. Issue (Open → Under review → Resolved) blocks completion.</p>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ ordM }}" as="f" hint-placeholder-count="4"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Order" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ ordD }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Order" vp="desktop" state="{{ f.state }}" hint-size="1440px,1500px"></dc-import></div></div></sc-for>
+  </div>
+</section>
+
+<section data-screen-label="10 Messages" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">10 · Messages</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ msgM }}" as="f" hint-placeholder-count="3"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Messages" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ msgD }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;height:900px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Messages" vp="desktop" state="{{ f.state }}" hint-size="1440px,900px" style="height:100%"></dc-import></div></div></sc-for>
+  </div>
+</section>
+
+<section data-screen-label="11 Designer dashboard" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">11 · Designer dashboard</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ dashM }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Designer Dashboard" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ dashD }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Designer Dashboard" vp="desktop" state="{{ f.state }}" hint-size="1440px,1400px"></dc-import></div></div></sc-for>
+  </div>
+</section>
+
+<section data-screen-label="12 Profile" style="padding:40px 80px 120px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">12 · Customer profile</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ profM }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Profile" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ profD }}" as="f" hint-placeholder-count="1"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Profile" vp="desktop" state="{{ f.state }}" hint-size="1440px,1200px"></dc-import></div></div></sc-for>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const L = (n, arr) => arr.map(([l, label, state]) => ({ id: n + l, label, state }));
+    return {
+      reqM: L(6, [['a', 'Mobile · Outfit details', 'details'], ['b', 'Mobile · Validation errors', 'errors'], ['c', 'Mobile · Guided measurements', 'measurements'], ['d', 'Mobile · Request sent', 'submitted']]),
+      reqD: L(6, [['e', 'Desktop · Outfit details', 'details'], ['f', 'Desktop · Guided measurements', 'measurements']]),
+      listM: L(7, [['a', 'Mobile · Requests', 'requests'], ['b', 'Mobile · Orders', 'orders'], ['c', 'Mobile · Empty', 'empty']]),
+      listD: L(7, [['d', 'Desktop · Requests', 'requests'], ['e', 'Desktop · Orders', 'orders']]),
+      specM: L(8, [['a', 'Mobile · Awaiting confirmation', 'default'], ['b', 'Mobile · Superseded by v3', 'superseded']]),
+      specD: L(8, [['c', 'Desktop · Awaiting confirmation', 'default'], ['d', 'Desktop · Confirmed, order created', 'confirmed']]),
+      ordM: L(9, [['a', 'Mobile · In production (date revised)', 'inProduction'], ['b', 'Mobile · Handed over', 'handedOver'], ['c', 'Mobile · Issue open', 'issueOpen'], ['d', 'Mobile · Completed, review', 'completed']]),
+      ordD: L(9, [['e', 'Desktop · Handed over', 'handedOver'], ['f', 'Desktop · Issue open', 'issueOpen']]),
+      msgM: L(10, [['a', 'Mobile · Conversations', 'default'], ['b', 'Mobile · Thread, send failed', 'failed'], ['c', 'Mobile · Empty', 'empty']]),
+      msgD: L(10, [['d', 'Desktop · Thread', 'default'], ['e', 'Desktop · Send failed', 'failed']]),
+      dashM: L(11, [['a', 'Mobile · Approved', 'default'], ['b', 'Mobile · Pending approval', 'pending']]),
+      dashD: L(11, [['c', 'Desktop · Approved', 'default'], ['d', 'Desktop · Pending approval', 'pending']]),
+      profM: L(12, [['a', 'Mobile · Default', 'default'], ['b', 'Mobile · Saved', 'saved']]),
+      profD: L(12, [['c', 'Desktop · Default', 'default']])
+    };
+  }
+}
+</script>
+</body>
+</html>

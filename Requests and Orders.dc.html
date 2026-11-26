@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Requests and Orders" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="requests" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:1040px;margin:0 auto;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px) clamp(32px,5cqi,80px);display:flex;flex-direction:column;gap:clamp(18px,2.4cqi,28px)">
+      <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.6cqi,52px);line-height:1.05;font-weight:600;color:#2B2B2B">Requests &amp; Orders</h1>
+      <div role="tablist" aria-label="Requests and orders" style="display:flex;gap:4px;border-bottom:1px solid #DDD5C5">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="2">
+          <button role="tab" aria-selected="{{ t.sel }}" style="min-height:48px;padding:0 16px;border:0;border-bottom:3px solid {{ t.line }};margin-bottom:-1px;background:transparent;color:{{ t.color }};font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer" style-hover="color:#1F4D3A" style-focus="outline:none;box-shadow:inset 0 0 0 2px #1F4D3A;border-radius:8px 8px 0 0">{{ t.label }}<span style="min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:{{ t.badgeBg }};color:{{ t.badgeFg }};font-size:12px;display:inline-flex;align-items:center;justify-content:center">{{ t.count }}</span></button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ items }}" as="it" hint-placeholder-count="3">
+            <li style="background:#FFFFFF;border-radius:16px;padding:clamp(14px,1.8cqi,20px);display:flex;gap:clamp(12px,1.8cqi,20px);align-items:flex-start;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06);border:{{ it.border }}">
+              <img src="{{ it.img }}" alt="" style="flex:none;width:clamp(64px,8cqi,96px);height:clamp(80px,10cqi,120px);border-radius:10px;object-fit:cover;object-position:center 20%;display:block;background:#EFE9DD">
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between">
+                  <span style="font-size:13px;color:#5E5B55">{{ it.id }} · {{ it.designer }}</span>
+                  <div style="display:flex;gap:6px;flex-wrap:wrap"><dc-import name="StatusChip" status="{{ it.status }}" hint-size="120px,28px"></dc-import><sc-if value="{{ it.hasIssue }}"><dc-import name="StatusChip" status="Issue open" hint-size="100px,28px"></dc-import></sc-if></div>
+                </div>
+                <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(21px,2cqi,26px);line-height:1.15;font-weight:600;color:#2B2B2B">{{ it.title }}</h2>
+                <span style="font-size:14px;line-height:1.5">{{ it.meta }}</span>
+                <sc-if value="{{ it.hasDate }}"><span style="font-size:13px;color:#6B4510;display:flex;gap:6px;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{ it.dateNote }}</span></sc-if>
+                <div style="display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid #EFE9DD">
+                  <span style="font-size:13px;color:#5E5B55">{{ it.update }}</span>
+                  <sc-if value="{{ it.primary }}"><a href="#" style="min-height:44px;padding:0 18px;border-radius:12px;background:#1F4D3A;color:#FFFFFF;text-decoration:none;font-size:14px;font-weight:600;display:flex;align-items:center" style-hover="background:#183D2E;color:#FFFFFF" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">{{ it.action }}</a></sc-if>
+                  <sc-if value="{{ it.secondary }}"><a href="#" style="min-height:44px;display:flex;align-items:center;gap:4px;font-size:14px;font-weight:600;color:#1F4D3A;text-decoration:none" style-hover="text-decoration:underline">{{ it.action }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></sc-if>
+                </div>
+              </div>
+            </li>
+          </sc-for>
+        </ul>
+      </sc-if>
+      <sc-if value="{{ isEmpty }}">
+        <div style="background:#FFFFFF;border-radius:16px;padding:clamp(28px,4cqi,56px);display:flex;flex-direction:column;align-items:flex-start;gap:14px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06)">
+          <span style="width:56px;height:56px;border-radius:50%;background:#F3EDE1;display:flex;align-items:center;justify-content:center;color:#7A5E22"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3.5h6v3H9z M7.5 5H5.5v16h13V5h-2 M8.5 11.5h7 M8.5 15.5h5"></path></svg></span>
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.6cqi,34px);line-height:1.15;font-weight:600;color:#2B2B2B">No requests yet</h2>
+          <p style="margin:0;font-size:15px;line-height:1.6;max-width:480px">Find a designer whose work you love, then send them a custom request. Everything you send and agree will be tracked here.</p>
+          <button style="margin-top:6px;height:52px;padding:0 24px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Discover designers</button>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="requests" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;requests&quot;,&quot;orders&quot;,&quot;empty&quot;],&quot;default&quot;:&quot;requests&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const s = this.props.state ?? 'requests';
+    const empty = s === 'empty', orders = s === 'orders';
+    const mk = (on, label, count) => ({ label, count, sel: on ? 'true' : 'false', line: on ? '#1F4D3A' : 'transparent', color: on ? '#1F4D3A' : '#5E5B55', badgeBg: on ? '#1F4D3A' : '#ECEAE4', badgeFg: on ? '#FAF6EE' : '#4A4A48' });
+    const norm = it => ({ ...it, primary: !!it.primary, secondary: !it.primary, hasDate: !!it.dateNote, hasIssue: !!it.hasIssue, border: it.primary ? '1.5px solid #1F4D3A' : '1px solid transparent' });
+    const requests = [
+      { id: 'REQ-2026-0418', designer: 'Atelier Adùnní', status: 'Awaiting confirmation', title: 'Coral aso-oke iro and buba with gele', meta: 'Traditional engagement · 1 outfit · Needed by 12 Dec 2026', update: 'Specification v2 sent · 2 hours ago', action: 'Review specification v2', primary: true, img: 'images/bride-cream-iro-gele.jpg' },
+      { id: 'REQ-2026-0421', designer: 'Zainab Ahmed Studio', status: 'Discussing', title: 'Gold lace aso-ebi for 6 bridesmaids', meta: 'Wedding · 6 outfits · Needed by 20 Dec 2026', update: '3 unread messages · yesterday', action: 'Open conversation', img: 'images/gold-lace-gele.jpg' },
+      { id: 'REQ-2026-0411', designer: 'House of Kúnlé', status: 'Submitted', title: 'Brown agbada for my father’s 70th', meta: 'Owambe · 1 outfit · Needed by 9 Jan 2027', update: 'Sent 4 Nov · waiting for the designer', action: 'View request', img: 'images/brown-agbada.jpg' },
+      { id: 'REQ-2026-0409', designer: 'Ọ̀ṣun Threads', status: 'Declined', title: 'One-shoulder brown gown', meta: 'Wedding guest · Declined: “Fully booked until January.”', update: '1 Nov', action: 'Find another designer', img: 'images/brown-gown-oneshoulder.jpg' }
+    ];
+    const ord = [
+      { id: 'ORD-2026-0187', designer: 'Ìyá Ìbejì Couture', status: 'Handed over', title: 'Wine damask iro and buba for naming day', meta: 'Naming ceremony · Handed over 3 Nov at Yaba studio', update: 'Confirm you received it, or report an issue', action: 'Confirm completion', primary: true, img: 'images/maroon-iro-gele.jpg' },
+      { id: 'ORD-2026-0193', designer: 'House of Kúnlé', status: 'In production', title: 'Black and gold agbada for the groom', meta: 'Traditional wedding · Needed by 30 Nov 2026', dateNote: 'Ready date revised to 28 Nov (was 21 Nov), agreed 2 Nov', update: 'Updated 1 day ago', action: 'View order', img: 'images/black-gold-agbada.jpg' },
+      { id: 'ORD-2026-0171', designer: 'Garden City Tailoring', status: 'Handed over', hasIssue: true, title: 'Navy kaftan set', meta: 'Thanksgiving · Fit issue under review by MY GARB support', update: 'Completion paused until resolved', action: 'View issue', img: 'images/navy-kaftan-set.jpg' },
+      { id: 'ORD-2026-0162', designer: 'Atelier Adùnní', status: 'Completed', title: 'Champagne lace aso-ebi', meta: 'Wedding · Completed 18 Oct 2026', update: 'You haven’t reviewed this order', action: 'Leave a review', img: 'images/brown-gown-cross.jpg' }
+    ];
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile',
+      tabs: [mk(!orders, 'Requests', empty ? 0 : 4), mk(orders, 'Orders', empty ? 0 : 4)],
+      hasItems: !empty, isEmpty: empty, items: (orders ? ord : requests).map(norm)
+    };
+  }
+}
+</script>
+</body>
+</html>

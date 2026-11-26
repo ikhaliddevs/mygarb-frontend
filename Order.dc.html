@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Order detail" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="requests" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+    <header style="background:#1F4D3A;height:56px;display:flex;align-items:center;padding:0 6px;gap:4px;flex:none;color:#FAF6EE"><button aria-label="Back to Orders" style="width:44px;height:44px;border:0;background:transparent;color:#FAF6EE;display:flex;align-items:center;justify-content:center;border-radius:10px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button><span style="font-size:16px;font-weight:600">Order</span></header>
+  </sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px) clamp(32px,5cqi,80px);display:flex;flex-direction:column;gap:clamp(18px,2.4cqi,28px)">
+      <div style="display:flex;gap:clamp(14px,2cqi,24px);align-items:flex-start">
+        <img src="{{ o.img }}" alt="{{ o.title }}" style="flex:none;width:clamp(72px,9cqi,120px);height:clamp(90px,11cqi,150px);border-radius:12px;object-fit:cover;object-position:center 20%;display:block">
+        <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+          <span style="font-size:13px;color:#5E5B55">{{ o.id }} · {{ o.designer }}</span>
+          <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.4cqi,48px);line-height:1.05;font-weight:600;color:#2B2B2B;text-wrap:balance">{{ o.title }}</h1>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><dc-import name="StatusChip" status="{{ status }}" hint-size="120px,28px"></dc-import><sc-if value="{{ isIssue }}"><dc-import name="StatusChip" status="Issue open" hint-size="100px,28px"></dc-import></sc-if></div>
+        </div>
+      </div>
+
+      <ol aria-label="Order progress" style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px">
+        <sc-for list="{{ stages }}" as="st" hint-placeholder-count="5"><li aria-current="{{ st.cur }}" style="display:flex;flex-direction:column;gap:8px"><span style="height:6px;border-radius:6px;background:{{ st.bar }}"></span><span style="font-size:clamp(11px,1cqi,14px);line-height:1.25;font-weight:{{ st.w }};color:{{ st.c }}">{{ st.label }}</span></li></sc-for>
+      </ol>
+
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4cqi,48px);align-items:flex-start">
+        <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:18px">
+          <sc-if value="{{ isHanded }}">
+            <section style="background:#FFFFFF;border-radius:16px;padding:clamp(18px,2.4cqi,28px);display:flex;flex-direction:column;gap:14px;border:1.5px solid #1F4D3A">
+              <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#2B2B2B">Did everything arrive as agreed?</h2>
+              <p style="margin:0;font-size:15px;line-height:1.6">House of Kúnlé recorded handover on 27 Nov: “Collected at Surulere studio after final fitting.” Confirm only when you have the outfit and it matches the specification.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px"><button style="height:52px;padding:0 24px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Confirm completion</button><button style="height:52px;padding:0 24px;border:1px solid #8A2E1C;border-radius:12px;background:transparent;color:#8A2E1C;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#F6E1DA" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #8A2E1C">Report an issue</button></div>
+            </section>
+          </sc-if>
+          <sc-if value="{{ isIssue }}">
+            <section style="background:#FFFFFF;border-radius:16px;padding:clamp(18px,2.4cqi,28px);display:flex;flex-direction:column;gap:14px;border:1.5px solid #B3412A">
+              <div style="display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#2B2B2B">Fit issue · ISS-0057</h2><dc-import name="StatusChip" status="Under review" hint-size="110px,28px"></dc-import></div>
+              <p style="margin:0;font-size:15px;line-height:1.6;color:#2B2B2B">“Agbada sleeves are about 3 cm longer than the agreed 62 cm and the cap is tight.”</p>
+              <span style="font-size:13px;color:#5E5B55">Reported by you 28 Nov · 2 photos attached · Assigned to Bisi, MY GARB support</span>
+              <div style="background:#F3EDE1;border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.55;color:#2B2B2B">Completion is paused until this is resolved. Support will record the outcome here; you’ll be notified.</div>
+              <button disabled style="align-self:flex-start;height:52px;padding:0 24px;border:0;border-radius:12px;background:#D8D2C4;color:#5E5B55;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600">Confirm completion</button>
+            </section>
+          </sc-if>
+          <sc-if value="{{ isCompleted }}">
+            <section style="background:#FFFFFF;border-radius:16px;padding:clamp(18px,2.4cqi,28px);display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.06)">
+              <div style="display:flex;flex-direction:column;gap:6px"><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:#2B2B2B">Review House of Kúnlé</h2><p style="margin:0;font-size:14px;line-height:1.55;color:#5E5B55">One review per completed order. Your rating appears on their profile; your specification and measurements stay private.</p></div>
+              <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px"><legend style="font-size:14px;font-weight:600;color:#2B2B2B;padding:0;margin-bottom:8px">Rating</legend>
+                <div style="display:flex;gap:4px"><sc-for list="{{ rateStars }}" as="r" hint-placeholder-count="5"><button role="radio" aria-checked="{{ r.checked }}" aria-label="{{ r.n }} out of 5" style="width:48px;height:48px;border:0;border-radius:10px;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #1F4D3A"><svg width="30" height="30" viewBox="0 0 24 24" fill="{{ r.fill }}" stroke="#B8913F" stroke-width="1.4"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9l-5.4 2.9 1.1-6.1L3.2 9.4l6.1-.8L12 3Z"></path></svg></button></sc-for><span style="align-self:center;margin-left:8px;font-size:14px;color:#2B2B2B;font-weight:600">4 of 5</span></div>
+              </fieldset>
+              <div style="display:flex;flex-direction:column;gap:6px"><label for="rv" style="font-size:14px;font-weight:600;color:#2B2B2B">Your review <span style="font-weight:400;color:#5E5B55">(optional)</span></label><textarea id="rv" rows="4" style="padding:12px 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.55;color:#2B2B2B;resize:vertical" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)">Beautiful embroidery and Kúnlé kept me updated throughout. The ready date moved by a week, but he told us early and still delivered before the wedding.</textarea><span style="font-size:13px;color:#5E5B55;text-align:right">168 / 1000</span></div>
+              <button style="align-self:flex-start;height:52px;padding:0 24px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Post review</button>
+            </section>
+          </sc-if>
+          <section style="background:#FFFFFF;border-radius:16px;padding:clamp(18px,2.4cqi,28px);display:flex;flex-direction:column;gap:16px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 10px 28px rgba(20,51,42,.05)">
+            <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#2B2B2B">Timeline</h2>
+            <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+              <sc-for list="{{ events }}" as="e" hint-placeholder-count="5">
+                <li style="display:grid;grid-template-columns:20px 1fr;gap:14px">
+                  <span style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;margin-top:5px;border-radius:50%;background:{{ e.dot }};box-shadow:0 0 0 3px {{ e.ring }}"></span><span style="flex:1;width:2px;background:#E6DFD0;margin:6px 0 0"></span></span>
+                  <div style="display:flex;flex-direction:column;gap:3px;padding-bottom:18px"><span style="font-size:15px;font-weight:600;color:#2B2B2B">{{ e.t }}</span><span style="font-size:14px;line-height:1.5">{{ e.d }}</span><span style="font-size:12px;color:#5E5B55">{{ e.when }}</span></div>
+                </li>
+              </sc-for>
+            </ol>
+          </section>
+        </div>
+        <aside style="flex:1 1 320px;max-width:100%;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#FFFFFF;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 12px 32px rgba(20,51,42,.08)">
+            <span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E5B55">Agreed dates</span>
+            <dl style="margin:0;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px"><dt style="color:#5E5B55">Needed by (occasion)</dt><dd style="margin:0;font-weight:600;color:#2B2B2B">30 Nov 2026</dd></div>
+              <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px"><dt style="color:#5E5B55">Ready date</dt><dd style="margin:0;text-align:right;display:flex;flex-direction:column;gap:2px"><span style="font-weight:600;color:#2B2B2B">28 Nov 2026</span><span style="font-size:12px;color:#6B4510">Revised · was <span style="text-decoration:line-through">21 Nov</span></span></dd></div>
+              <div style="display:flex;justify-content:space-between;gap:12px;font-size:14px"><dt style="color:#5E5B55">Agreed price</dt><dd style="margin:0;font-weight:600;color:#2B2B2B">₦385,000</dd></div>
+            </dl>
+            <a href="#" style="min-height:44px;display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid #EFE9DD;font-size:15px;font-weight:600;color:#1F4D3A;text-decoration:none" style-hover="text-decoration:underline">Agreed specification v3<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button style="height:48px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#CDB27A" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Message House of Kúnlé</button>
+            <sc-if value="{{ showChange }}" hint-placeholder-val="{{ true }}"><button style="height:48px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Propose a change</button></sc-if>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="requests" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;inProduction&quot;,&quot;handedOver&quot;,&quot;issueOpen&quot;,&quot;completed&quot;],&quot;default&quot;:&quot;inProduction&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const s = this.props.state ?? 'inProduction';
+    const idx = { inProduction: 1, handedOver: 3, issueOpen: 3, completed: 4 }[s] ?? 1;
+    const labels = ['Confirmed', 'In production', 'Ready', 'Handed over', 'Completed'];
+    const stages = labels.map((label, i) => ({ label, cur: i === idx ? 'step' : 'false', bar: i <= idx ? '#1F4D3A' : '#DDD5C5', w: i === idx ? 600 : 500, c: i <= idx ? '#2B2B2B' : '#5E5B55' }));
+    const all = [
+      { t: 'Order confirmed', d: 'You confirmed specification v3. Terms and measurements saved to this order.', when: '24 Oct 2026, 19:05', k: 0 },
+      { t: 'In production', d: 'Kúnlé started cutting. “Fabric is in, embroidery begins Monday.”', when: '27 Oct 2026, 10:12', k: 1 },
+      { t: 'Ready date revised', d: 'Change request CR-1: 21 Nov → 28 Nov, embroidery supplier delay. You agreed on 2 Nov.', when: '2 Nov 2026, 16:40', k: 1 },
+      { t: 'Ready', d: 'Ready for final fitting at Surulere studio.', when: '25 Nov 2026, 13:30', k: 2 },
+      { t: 'Handed over', d: 'Collected at Surulere studio after final fitting.', when: '27 Nov 2026, 17:15', k: 3 },
+      { t: 'Issue reported', d: 'Fit: sleeves longer than agreed. Under review.', when: '28 Nov 2026, 09:02', k: 3, issue: true },
+      { t: 'Completed', d: 'You confirmed you received the outfit as agreed.', when: '29 Nov 2026, 11:20', k: 4 }
+    ];
+    const events = all.filter(e => e.k <= idx && (!e.issue || s === 'issueOpen')).reverse()
+      .map((e, i) => ({ ...e, dot: e.issue ? '#B3412A' : i === 0 ? '#1F4D3A' : '#A7B8AE', ring: i === 0 ? (e.issue ? '#F6E1DA' : '#DDEBE2') : 'transparent' }));
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile',
+      o: { id: 'ORD-2026-0193', designer: 'House of Kúnlé', title: 'Black and gold agbada for the groom', img: 'images/black-gold-agbada.jpg' },
+      status: labels[idx], stages, events,
+      isHanded: s === 'handedOver', isIssue: s === 'issueOpen', isCompleted: s === 'completed', showChange: s === 'inProduction',
+      rateStars: [1, 2, 3, 4, 5].map(n => ({ n, checked: n === 4 ? 'true' : 'false', fill: n <= 4 ? '#B8913F' : 'none' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Designer profile" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="discover" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="height:clamp(160px,26cqi,380px);position:relative;overflow:hidden;background:#EFE9DD"><img src="{{ p.coverImg }}" alt="{{ p.coverCaption }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block"></div>
+    <div style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,5.5cqi,80px) clamp(40px,5cqi,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(28px,4cqi,56px);align-items:start">
+      <div style="grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:clamp(20px,3cqi,48px);align-items:flex-start">
+        <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
+          <span style="margin-top:calc(clamp(44px,5cqi,64px) * -1);width:clamp(88px,9cqi,128px);height:clamp(88px,9cqi,128px);border-radius:50%;background:{{ p.avatarTone }};border:4px solid #FAF6EE;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.2cqi,44px);font-weight:600;color:#2B2B2B">{{ p.initials }}</span>
+          <nav aria-label="Breadcrumb" style="font-size:13px;color:#5E5B55;display:flex;gap:6px;flex-wrap:wrap;align-items:center"><a href="#" style="color:#1F4D3A;display:inline-flex;align-items:center;min-height:44px">Discover</a><span aria-hidden="true">/</span><span>{{ p.businessName }}</span></nav>
+          <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4.6cqi,64px);line-height:1;font-weight:600;color:#2B2B2B">{{ p.businessName }}</h1>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;align-items:center">
+            <span style="display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21Z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>{{ p.serviceLocation }}</span>
+            <sc-if value="{{ hasReviews }}" hint-placeholder-val="{{ true }}"><a href="#reviews" style="display:flex;align-items:center;gap:6px;color:#2B2B2B;text-decoration:none;min-height:44px"><svg width="16" height="16" viewBox="0 0 24 24" fill="#B8913F"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9l-5.4 2.9 1.1-6.1L3.2 9.4l6.1-.8L12 3Z"></path></svg><strong style="font-weight:600">{{ p.rating }}</strong><span style="color:#5E5B55;text-decoration:underline">{{ p.reviewCount }} reviews</span></a></sc-if>
+            <sc-if value="{{ noReviews }}"><span style="display:flex;align-items:center;gap:6px;color:#5E5B55;min-height:44px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8F8778" stroke-width="1.6"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9l-5.4 2.9 1.1-6.1L3.2 9.4l6.1-.8L12 3Z"></path></svg>No reviews yet</span></sc-if>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px"><sc-for list="{{ p.specializations }}" as="s" hint-placeholder-count="4"><span style="font-size:14px;color:#2B2B2B;background:#F3EDE1;padding:6px 12px;border-radius:999px">{{ s }}</span></sc-for></div>
+          <p style="margin:6px 0 0;font-size:clamp(16px,1.3cqi,18px);line-height:1.7;max-width:680px;text-wrap:pretty">{{ p.bio }}</p>
+        </div>
+        <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}">
+          <aside style="flex:0 0 380px;margin-top:32px;background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:20px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 12px 32px rgba(20,51,42,.08)">
+            <dl style="margin:0;display:flex;flex-direction:column;gap:16px">
+              <sc-for list="{{ facts }}" as="f" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:3px"><dt style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E5B55">{{ f.k }}</dt><dd style="margin:0;font-size:15px;line-height:1.5;color:#2B2B2B">{{ f.v }}</dd></div></sc-for>
+            </dl>
+            <button style="height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:background .16s ease" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1F4D3A">Request a custom outfit</button>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:#5E5B55">Your request goes to {{ p.businessName }} only. No order is created until you confirm their specification.</p>
+          </aside>
+        </sc-if>
+        <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+          <dl style="margin:0;width:100%;background:#FFFFFF;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 8px 22px rgba(20,51,42,.06)">
+            <sc-for list="{{ facts }}" as="f" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:3px"><dt style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E5B55">{{ f.k }}</dt><dd style="margin:0;font-size:15px;line-height:1.5;color:#2B2B2B">{{ f.v }}</dd></div></sc-for>
+          </dl>
+        </sc-if>
+      </div>
+      <section aria-labelledby="pf" style="grid-column:1 / -1;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
+          <h2 id="pf" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3cqi,44px);font-weight:600;color:#2B2B2B">Portfolio</h2>
+          <div role="tablist" style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <sc-if value="{{ t.on }}"><button role="tab" aria-selected="true" style="min-height:44px;padding:0 16px;border:0;border-radius:999px;background:#1F4D3A;color:#FAF6EE;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ t.label }}</button></sc-if>
+              <sc-if value="{{ t.off }}"><button role="tab" aria-selected="false" style="min-height:44px;padding:0 16px;border:1px solid #D6CDBB;border-radius:999px;background:#FFFFFF;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:#F3EDE1" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ t.label }}</button></sc-if>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,{{ colMin }}),1fr));gap:clamp(12px,2cqi,24px)">
+          <sc-for list="{{ portfolio }}" as="it" hint-placeholder-count="4"><dc-import name="PortfolioCard" item="{{ it }}" hint-size="100%,380px"></dc-import></sc-for>
+        </div>
+      </section>
+      <section id="reviews" aria-labelledby="rv" style="grid-column:1 / -1;display:flex;flex-direction:column;gap:20px;padding-top:clamp(8px,2cqi,24px)">
+        <h2 id="rv" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3cqi,44px);font-weight:600;color:#2B2B2B">Reviews</h2>
+        <sc-if value="{{ hasReviews }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+            <div style="background:#1F4D3A;color:#FAF6EE;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:6px;justify-content:center"><span style="font-family:'Cormorant Garamond',serif;font-size:64px;line-height:1;font-weight:600">{{ p.rating }}</span><span style="display:flex;gap:2px" aria-label="{{ p.rating }} out of 5"><sc-for list="{{ five }}" as="x" hint-placeholder-count="5"><svg width="18" height="18" viewBox="0 0 24 24" fill="#D9C08C"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9l-5.4 2.9 1.1-6.1L3.2 9.4l6.1-.8L12 3Z"></path></svg></sc-for></span><span style="font-size:14px;color:rgba(250,246,238,.86)">From {{ p.reviewCount }} completed orders</span></div>
+            <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="2"><article style="background:#FFFFFF;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 8px 22px rgba(20,51,42,.06)"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><span style="display:flex;gap:2px" aria-label="{{ r.rating }} out of 5"><sc-for list="{{ r.stars }}" as="x" hint-placeholder-count="5"><svg width="15" height="15" viewBox="0 0 24 24" fill="#B8913F"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9l-5.4 2.9 1.1-6.1L3.2 9.4l6.1-.8L12 3Z"></path></svg></sc-for></span><span style="font-size:12px;font-weight:600;color:#1F4D3A;background:#DDEBE2;padding:3px 8px;border-radius:999px">Completed order</span></div><p style="margin:0;font-size:15px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">“{{ r.text }}”</p><span style="font-size:13px;color:#5E5B55">{{ r.name }} · {{ r.occasion }} · {{ r.date }}</span></article></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noReviews }}">
+          <div style="background:#FFFFFF;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:8px;max-width:640px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 8px 22px rgba(20,51,42,.06)"><h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#2B2B2B">No reviews yet</h3><p style="margin:0;font-size:15px;line-height:1.6">{{ p.businessName }} joined the pilot recently. Reviews appear here only after a customer confirms a completed order.</p></div>
+        </sc-if>
+      </section>
+    </div>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#FAF6EE;border-top:1px solid #E6DFD0;padding:12px 20px"><button style="width:100%;height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Request a custom outfit</button></div>
+    <dc-import name="MGNav" kind="mobileBottom" active="discover" signed-in="{{ true }}" hint-size="100%,70px"></dc-import>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;default&quot;,&quot;noReviews&quot;],&quot;default&quot;:&quot;default&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const fresh = (this.props.state ?? 'default') === 'noReviews';
+    const p = fresh ? {
+      businessName: 'Garden City Tailoring', initials: 'GC', avatarTone: '#C9D3C4', coverImg: 'images/group.jpg', coverCaption: 'Group in agbada, ankara and senator wear',
+      serviceLocation: 'GRA Phase 2, Port Harcourt', reviewCount: 0, specializations: ['Kaftan', 'Senator wear', 'Family aso-ebi'],
+      bio: 'Chidi Okafor and his team of four tailors make kaftans and senator wear for families and groups, from naming ceremonies to church thanksgivings. Fittings at our GRA studio.'
+    } : {
+      businessName: 'Atelier Adùnní', initials: 'AA', avatarTone: '#E8D3B0', coverImg: 'images/agbada-family-wide.jpg', coverCaption: 'Groom, groomsmen and bride in cream and teal aso-oke',
+      serviceLocation: 'Lekki, Lagos', rating: '4.9', reviewCount: 38, specializations: ['Bridal aso-ebi', 'Iro and buba', 'Gele', 'Traditional engagement'],
+      bio: 'Founded by Adùnní Bakare in 2017, our Lekki atelier dresses Yoruba brides, their mothers and their aso-ebi friends. We work in hand-woven aso-oke, damask and French lace, and tie every gele in-house on the day.'
+    };
+    const facts = fresh ? [
+      { k: 'Service location', v: 'Port Harcourt and Obio/Akpor. Studio fittings only.' },
+      { k: 'Availability', v: 'Accepting requests. Typical lead time 2–4 weeks.' },
+      { k: 'Measurements', v: 'Self-measurement guide or studio fitting.' }
+    ] : [
+      { k: 'Service location', v: 'Lekki, Ikoyi and Victoria Island. Home fittings within Lagos Island.' },
+      { k: 'Availability', v: 'Accepting requests. Booking from mid-December 2026; typical lead time 4–6 weeks.' },
+      { k: 'Measurements', v: 'Self-measurement guide or designer-assisted fitting.' }
+    ];
+    const portfolio = fresh ? [
+      { title: 'Navy embroidered kaftan set', category: 'Kaftan', occasion: 'Naming ceremony', img: 'images/navy-kaftan-set.jpg', caption: 'Navy kaftan and trousers with gold embroidery', estimate: '₦85,000 per set' },
+      { title: 'Two-tone senator shirt with contrast piping', category: 'Senator wear', occasion: 'Thanksgiving', img: 'images/beige-green-shirt.jpg', caption: 'Cream and green senator shirt' }
+    ] : [
+      { title: 'Champagne aso-oke iro and buba with coral beads', category: 'Iro and buba', occasion: 'Traditional engagement', img: 'images/bride-cream-iro-gele.jpg', caption: 'Bride in champagne aso-oke with coral beads and gele', estimate: '₦450,000 – ₦620,000' },
+      { title: 'Gold lace aso-ebi with sculpted gele', category: 'Aso-ebi gown', occasion: 'Wedding', img: 'images/gold-lace-gele.jpg', caption: 'Guest in gold beaded lace and gele', estimate: '₦180,000 per gown' },
+      { title: 'Wine damask iro and buba for the mother of the bride', category: 'Iro and buba', occasion: 'Wedding', img: 'images/maroon-iro-gele.jpg', caption: 'Mother of the bride in wine damask with coral beads' },
+      { title: 'Groom and groomsmen agbada, cream and teal', category: 'Agbada', occasion: 'Traditional wedding', img: 'images/agbada-trio.jpg', caption: 'Groom and groomsmen in cream and teal agbada', estimate: '₦35,000' }
+    ];
+    const star = n => Array.from({ length: n }, (_, i) => i);
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile', p, facts, portfolio, colMin: vp === 'mobile' ? '140px' : '240px',
+      hasReviews: !fresh, noReviews: fresh, five: star(5),
+      tabs: (fresh ? ['All', 'Kaftan', 'Senator wear'] : ['All', 'Iro and buba', 'Aso-ebi gown', 'Agbada']).map((l, i) => ({ label: l, on: i === 0, off: i !== 0 })),
+      reviews: [
+        { rating: 5, stars: star(5), text: 'She understood exactly what my mum wanted for the engagement. Fitting changes were agreed in the app and the outfit was ready two days early.', name: 'Folake A.', occasion: 'Traditional engagement', date: 'Sep 2026' },
+        { rating: 5, stars: star(5), text: 'Twelve aso-ebi gowns, twelve different bodies, every one fitted. The gele on the day was the talk of the party.', name: 'Ngozi E.', occasion: 'Wedding', date: 'Aug 2026' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

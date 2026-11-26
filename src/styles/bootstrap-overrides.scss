@@ -1,0 +1,24 @@
+@use './tokens' as tokens;
+
+$primary: tokens.$forest;
+$secondary: tokens.$champagne;
+$danger: tokens.$error-ink;
+$body-bg: tokens.$ivory;
+$body-color: tokens.$body-ink;
+$headings-color: tokens.$charcoal;
+$headings-font-family: tokens.$font-display;
+$headings-font-weight: 600;
+$font-family-sans-serif: tokens.$font-body;
+$line-height-base: 1.6;
+$border-radius: 0.75rem;
+$border-radius-lg: 1rem;
+$card-bg: #fff;
+$link-color: tokens.$forest;
+$link-hover-color: tokens.$forest-hover;
+$input-border-color: #8f8778;
+$input-bg: #fff;
+$input-focus-border-color: tokens.$forest;
+$input-btn-focus-color: rgba(tokens.$forest, 0.25);
+
+// Bootstrap 5's supported Sass customization entry point.
+@import 'bootstrap/scss/bootstrap';

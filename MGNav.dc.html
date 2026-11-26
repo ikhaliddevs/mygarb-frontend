@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ false }}">
+<nav aria-label="Main" style="background:#1F4D3A;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 56px;gap:24px">
+  <a href="#" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:.16em;color:#FAF6EE;text-decoration:none;min-height:44px;display:flex;align-items:center">MY GARB</a>
+  <div style="display:flex;gap:4px;align-items:center">
+    <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
+      <sc-if value="{{ l.active }}"><a href="#" aria-current="page" style="color:#FAF6EE;text-decoration:none;font-size:15px;font-weight:600;padding:0 16px;height:44px;display:flex;align-items:center;gap:8px;border-bottom:2px solid #D9C08C">{{ l.label }}</a></sc-if>
+      <sc-if value="{{ l.inactive }}"><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;font-weight:500;padding:0 16px;height:44px;display:flex;align-items:center;gap:8px;border-radius:8px;transition:background .16s ease" style-hover="background:rgba(250,246,238,.08);color:#FAF6EE">{{ l.label }}<sc-if value="{{ l.hasBadge }}"><span style="min-width:20px;height:20px;border-radius:999px;background:#D9C08C;color:#2B2B2B;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;padding:0 6px">{{ l.badge }}</span></sc-if></a></sc-if>
+    </sc-for>
+  </div>
+  <sc-if value="{{ signedIn }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;align-items:center;gap:8px">
+      <button aria-label="Notifications, 2 unread" style="width:44px;height:44px;border-radius:10px;border:0;background:transparent;color:#FAF6EE;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" style-hover="background:rgba(250,246,238,.08)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15L6 16Z"></path><path d="M10 20.5a2 2 0 0 0 4 0"></path></svg><span style="position:absolute;top:10px;right:11px;width:8px;height:8px;border-radius:50%;background:#D9C08C"></span></button>
+      <a href="#" aria-label="Your profile" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none"><span style="width:36px;height:36px;border-radius:50%;background:#D9C08C;color:#2B2B2B;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">FA</span></a>
+      <button style="height:44px;padding:0 16px;border-radius:10px;border:1px solid rgba(250,246,238,.45);background:transparent;color:#FAF6EE;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:rgba(250,246,238,.08)">Log out</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ guest }}">
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="#" style="height:44px;padding:0 16px;display:flex;align-items:center;color:#FAF6EE;font-size:15px;font-weight:500;text-decoration:none;border-radius:10px" style-hover="background:rgba(250,246,238,.08)">Sign in</a>
+      <a href="#" style="height:44px;padding:0 20px;display:flex;align-items:center;background:#D9C08C;color:#2B2B2B;font-size:15px;font-weight:600;text-decoration:none;border-radius:12px" style-hover="background:#CDB27A">Register</a>
+    </div>
+  </sc-if>
+</nav>
+</sc-if>
+<sc-if value="{{ isMobileTop }}">
+<header style="background:#1F4D3A;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 6px 0 20px">
+  <a href="#" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.16em;color:#FAF6EE;text-decoration:none;min-height:44px;display:flex;align-items:center">MY GARB</a>
+  <sc-if value="{{ signedIn }}"><button aria-label="Notifications, 2 unread" style="width:44px;height:44px;border:0;background:transparent;color:#FAF6EE;display:flex;align-items:center;justify-content:center;position:relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15L6 16Z"></path><path d="M10 20.5a2 2 0 0 0 4 0"></path></svg><span style="position:absolute;top:10px;right:11px;width:8px;height:8px;border-radius:50%;background:#D9C08C"></span></button></sc-if>
+  <sc-if value="{{ guest }}"><a href="#" style="height:44px;padding:0 14px;display:flex;align-items:center;color:#FAF6EE;font-size:15px;font-weight:500">Sign in</a></sc-if>
+</header>
+</sc-if>
+<sc-if value="{{ isMobileBottom }}">
+<nav aria-label="Main" style="background:#FFFFFF;border-top:1px solid #E6DFD0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:6px 4px 12px">
+  <sc-for list="{{ links }}" as="l" hint-placeholder-count="4">
+    <sc-if value="{{ l.active }}"><a href="#" aria-current="page" aria-label="{{ l.label }}" style="min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#1F4D3A;font-size:12px;font-weight:600"><span style="width:52px;height:28px;border-radius:999px;background:#E3EDE6;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ l.d }}"></path></svg></span>{{ l.short }}</a></sc-if>
+    <sc-if value="{{ l.inactive }}"><a href="#" aria-label="{{ l.label }}" style="min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#5E5B55;font-size:12px;font-weight:500;position:relative"><span style="width:52px;height:28px;border-radius:999px;display:flex;align-items:center;justify-content:center;position:relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ l.d }}"></path></svg><sc-if value="{{ l.hasBadge }}"><span style="position:absolute;top:-2px;right:6px;min-width:18px;height:18px;border-radius:999px;background:#1F4D3A;color:#FAF6EE;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;padding:0 5px">{{ l.badge }}</span></sc-if></span>{{ l.short }}</a></sc-if>
+  </sc-for>
+</nav>
+</sc-if>
+<sc-if value="{{ isFooter }}">
+<footer style="background:#14332A;color:#FAF6EE;padding:72px 80px 40px">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;letter-spacing:.16em">MY GARB</span>
+      <p style="margin:0;font-size:15px;line-height:1.6;color:rgba(250,246,238,.82);max-width:320px">Custom occasion wear, made by approved Nigerian designers. One request, one agreed specification, one tracked order.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#D9C08C;margin-bottom:8px">Occasions</span><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Weddings</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Traditional engagements</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Owambe parties</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Naming ceremonies</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Aso-ebi</a></div>
+    <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#D9C08C;margin-bottom:8px">For designers</span><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Join as a designer</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">How approval works</a></div>
+    <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#D9C08C;margin-bottom:8px">Help</span><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">How it works</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Report an issue</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Pilot terms</a><a href="#" style="color:rgba(250,246,238,.84);text-decoration:none;font-size:15px;min-height:36px;display:flex;align-items:center" style-hover="color:#FAF6EE">Privacy</a></div>
+  </div>
+  <div style="margin-top:56px;padding-top:24px;border-top:1px solid rgba(250,246,238,.16);display:flex;justify-content:space-between;gap:24px;font-size:14px;color:rgba(250,246,238,.78)">
+    <span>© 2026 MY GARB · Pilot in Lagos, Abuja and Port Harcourt</span>
+    <span>During the pilot, payment and handover are arranged directly with your designer.</span>
+  </div>
+</footer>
+</sc-if>
+<sc-if value="{{ isFooterMobile }}">
+<footer style="background:#14332A;color:#FAF6EE;padding:40px 20px 28px;display:flex;flex-direction:column;gap:20px">
+  <span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:.16em">MY GARB</span>
+  <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(250,246,238,.82)">Custom occasion wear from approved Nigerian designers.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
+    <a href="#" style="color:rgba(250,246,238,.86);text-decoration:none;font-size:15px;min-height:44px;display:flex;align-items:center">Join as a designer</a>
+    <a href="#" style="color:rgba(250,246,238,.86);text-decoration:none;font-size:15px;min-height:44px;display:flex;align-items:center">How it works</a>
+    <a href="#" style="color:rgba(250,246,238,.86);text-decoration:none;font-size:15px;min-height:44px;display:flex;align-items:center">Report an issue</a>
+    <a href="#" style="color:rgba(250,246,238,.86);text-decoration:none;font-size:15px;min-height:44px;display:flex;align-items:center">Pilot terms</a>
+  </div>
+  <span style="font-size:13px;line-height:1.5;color:rgba(250,246,238,.78);border-top:1px solid rgba(250,246,238,.16);padding-top:16px">© 2026 MY GARB · Payment and handover are arranged directly with your designer during the pilot.</span>
+</footer>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:72},&quot;kind&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobileTop&quot;,&quot;mobileBottom&quot;,&quot;footer&quot;,&quot;footerMobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;discover&quot;,&quot;requests&quot;,&quot;messages&quot;,&quot;profile&quot;,&quot;none&quot;],&quot;default&quot;:&quot;discover&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;signedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const kind = this.props.kind ?? 'desktop';
+    const active = this.props.active ?? 'discover';
+    const signedIn = this.props.signedIn ?? true;
+    const defs = [
+      { key: 'discover', label: 'Discover', short: 'Discover', d: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z M15.5 8.5l-2 5-5 2 2-5 5-2Z' },
+      { key: 'requests', label: 'Requests & Orders', short: 'Requests', d: 'M9 3.5h6v3H9z M7.5 5H5.5v16h13V5h-2 M8.5 11.5h7 M8.5 15.5h5' },
+      { key: 'messages', label: 'Messages', short: 'Messages', d: 'M4 5h16v11H9.5L4 20V5Z', badge: signedIn ? '3' : '' },
+      { key: 'profile', label: 'Profile', short: 'Profile', d: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5' }
+    ];
+    const links = defs.map(l => ({ ...l, active: l.key === active, inactive: l.key !== active, hasBadge: !!l.badge }));
+    return {
+      links, signedIn, guest: !signedIn,
+      isDesktop: kind === 'desktop', isMobileTop: kind === 'mobileTop', isMobileBottom: kind === 'mobileBottom',
+      isFooter: kind === 'footer', isFooterMobile: kind === 'footerMobile'
+    };
+  }
+}
+</script>
+</body>
+</html>

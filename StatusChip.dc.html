@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<span style="display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 11px;border-radius:999px;background:{{ bg }};color:{{ fg }};font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;white-space:nowrap"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:{{ fg }}"></span>{{ label }}</span>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:200,&quot;height&quot;:40},&quot;status&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Submitted&quot;,&quot;Discussing&quot;,&quot;Awaiting confirmation&quot;,&quot;Converted&quot;,&quot;Confirmed&quot;,&quot;In production&quot;,&quot;Ready&quot;,&quot;Handed over&quot;,&quot;Completed&quot;,&quot;Issue open&quot;,&quot;Under review&quot;,&quot;Resolved&quot;,&quot;Declined&quot;,&quot;Withdrawn&quot;,&quot;Cancelled&quot;,&quot;Pending approval&quot;,&quot;Draft&quot;],&quot;default&quot;:&quot;Submitted&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.props.status ?? 'Submitted';
+    const map = {
+      'Submitted': ['#ECEAE4', '#4A4A48'], 'Discussing': ['#F3EAD3', '#5E4A16'], 'Awaiting confirmation': ['#F3EAD3', '#5E4A16'],
+      'Converted': ['#E3EDE6', '#1F4D3A'], 'Confirmed': ['#E3EDE6', '#1F4D3A'], 'In production': ['#E3EAF2', '#2D4A6B'],
+      'Ready': ['#F6E6C8', '#6B4510'], 'Handed over': ['#E8E3EE', '#4D3B66'], 'Completed': ['#1F4D3A', '#FAF6EE'],
+      'Issue open': ['#F6E1DA', '#8A2E1C'], 'Under review': ['#F6E1DA', '#8A2E1C'], 'Resolved': ['#E3EDE6', '#1F4D3A'],
+      'Declined': ['#ECEAE4', '#5E5B55'], 'Withdrawn': ['#ECEAE4', '#5E5B55'], 'Cancelled': ['#ECEAE4', '#5E5B55'],
+      'Pending approval': ['#F3EAD3', '#5E4A16'], 'Draft': ['#ECEAE4', '#4A4A48']
+    };
+    const [bg, fg] = map[s] || map['Submitted'];
+    return { bg, fg, label: s };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Dialogs" style="container-type:inline-size;position:relative;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48;overflow:hidden">
+  <div aria-hidden="true" style="flex:1;min-height:0;display:flex;flex-direction:column">
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="requests" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+    <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+    <div style="flex:1;padding:clamp(20px,3.4cqi,48px) clamp(20px,5.5cqi,80px);display:flex;flex-direction:column;gap:14px;max-width:1040px;width:100%;margin:0 auto;box-sizing:border-box">
+      <span style="height:40px;width:50%;border-radius:8px;background:#EFE9DD"></span>
+      <span style="height:150px;border-radius:16px;background:#FFFFFF"></span>
+      <span style="height:150px;border-radius:16px;background:#FFFFFF"></span>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;background:rgba(20,51,42,.55);display:flex;align-items:{{ align }};justify-content:center;padding:{{ pad }}">
+    <div role="dialog" aria-modal="true" aria-labelledby="dlg-t" style="width:100%;max-width:560px;max-height:100%;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;background:#FAF6EE;border-radius:{{ radius }};padding:clamp(22px,3cqi,32px);display:flex;flex-direction:column;gap:18px;box-shadow:0 24px 64px rgba(20,51,42,.3)">
+      <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="align-self:center;width:40px;height:4px;border-radius:4px;background:#CFC6B4;margin-top:-8px"></span></sc-if>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#5E5B55">{{ d.ref }}</span><h2 id="dlg-t" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.6cqi,34px);line-height:1.1;font-weight:600;color:#2B2B2B">{{ d.title }}</h2></div>
+        <button aria-label="Close" style="flex:none;width:44px;height:44px;margin:-8px 0 0 0;border:0;border-radius:10px;background:transparent;color:#2B2B2B;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#EFE9DD" style-focus="outline:none;box-shadow:0 0 0 2px #1F4D3A"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+      </div>
+      <p style="margin:0;font-size:15px;line-height:1.6">{{ d.body }}</p>
+      <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:4px"><legend style="font-size:14px;font-weight:600;color:#2B2B2B;padding:0;margin-bottom:6px">{{ d.legend }}</legend>
+        <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4"><label style="min-height:44px;display:flex;align-items:center;gap:12px;font-size:15px;color:#2B2B2B;cursor:pointer"><span style="flex:none;width:20px;height:20px;border-radius:50%;border:2px solid {{ r.ring }};display:flex;align-items:center;justify-content:center"><span style="width:10px;height:10px;border-radius:50%;background:{{ r.dot }}"></span></span>{{ r.label }}</label></sc-for>
+      </fieldset>
+      <div style="display:flex;flex-direction:column;gap:6px"><label for="dn" style="font-size:14px;font-weight:600;color:#2B2B2B">{{ d.noteLabel }}</label><textarea id="dn" rows="3" style="padding:12px 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.55;color:#2B2B2B;resize:vertical" style-focus="outline:none;border-color:#1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22)">{{ d.note }}</textarea><span style="font-size:13px;color:#5E5B55">{{ d.noteHelp }}</span></div>
+      <div style="background:#F3EDE1;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;color:#2B2B2B">{{ d.consequence }}</div>
+      <div style="display:flex;flex-wrap:wrap-reverse;gap:10px;justify-content:flex-end">
+        <button style="flex:1 1 160px;height:52px;padding:0 20px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#EFE9DD" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">{{ d.keep }}</button>
+        <button style="flex:1 1 160px;height:52px;padding:0 20px;border:0;border-radius:12px;background:#8A2E1C;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#74261A" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #8A2E1C">{{ d.confirm }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;kind&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;decline&quot;,&quot;withdraw&quot;,&quot;cancel&quot;],&quot;default&quot;:&quot;decline&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const kind = this.props.kind ?? 'decline';
+    const m = vp === 'mobile';
+    const all = {
+      decline: { ref: 'REQ-2026-0433 · Tolu Bankole', title: 'Decline this request?', body: 'Tolu will be told you can’t take it on, with your reason. They can then send the request to another designer.', legend: 'Reason (shared with the customer)', reasons: ['Fully booked for this date', 'Outside my specialties', 'Outside my service location', 'Other'], pick: 0, noteLabel: 'Message to Tolu (optional)', note: 'Thank you for thinking of us. We’re fully booked until mid-January — Ìyá Ìbejì Couture in Yaba does beautiful naming-day iro and buba.', noteHelp: 'Be kind and brief. Don’t share contact details here.', consequence: 'Declining is final for this request. Your conversation stays readable but closes to new messages.', keep: 'Keep request', confirm: 'Decline request' },
+      withdraw: { ref: 'REQ-2026-0421 · Zainab Ahmed Studio', title: 'Withdraw your request?', body: 'Zainab will be told you’ve withdrawn. Nothing has been agreed yet, so no order is affected.', legend: 'Why are you withdrawing? (optional)', reasons: ['Found another designer', 'Plans changed', 'Price or dates don’t work', 'Prefer not to say'], pick: 1, noteLabel: 'Message to Zainab (optional)', note: 'The wedding has moved to next year. I’ll be in touch again — thank you for your time.', noteHelp: 'Shared with the designer.', consequence: 'You can’t reopen a withdrawn request. To work with Zainab again later, send a new one.', keep: 'Keep request', confirm: 'Withdraw request' },
+      cancel: { ref: 'ORD-2026-0198 · Tèmi Adebayo', title: 'Request to cancel this order?', body: 'This order is confirmed. Cancelling needs Tèmi’s agreement; MY GARB support steps in if you can’t agree.', legend: 'Reason', reasons: ['Can’t meet the agreed ready date', 'Fabric unavailable', 'Customer asked to cancel', 'Other'], pick: 1, noteLabel: 'Explain to Tèmi', note: 'Our aso-oke weaver in Iseyin can’t deliver the champagne colourway before December. I’m sorry — I can suggest an alternative fabric if you’d prefer.', noteHelp: 'Required. Shared with the customer and support.', consequence: 'Any payment you’ve received is settled directly with the customer. MY GARB doesn’t process refunds.', keep: 'Go back', confirm: 'Send cancellation request' }
+    };
+    const d = all[kind] || all.decline;
+    return {
+      desktop: !m, mobile: m, d,
+      reasons: d.reasons.map((label, i) => ({ label, ring: i === d.pick ? '#1F4D3A' : '#8F8778', dot: i === d.pick ? '#1F4D3A' : 'transparent' })),
+      align: m ? 'flex-end' : 'center', pad: m ? '24px 0 0' : '40px', radius: m ? '20px 20px 0 0' : '20px'
+    };
+  }
+}
+</script>
+</body>
+</html>

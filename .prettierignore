@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+package-lock.json
+# Preserve the original design export and instructions byte-for-byte.
+*.dc.html
+support.js
+AGENTS.md
+images/
+uploads/
+.thumbnail
+
+# Supplied API reference, preserve unchanged
+postman/

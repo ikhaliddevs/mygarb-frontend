@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#FAF6EE}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<div data-screen-label="Portfolio item" style="container-type:inline-size;display:flex;flex-direction:column;height:100%;background:#FAF6EE;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ false }}"><dc-import name="MGNav" kind="desktop" active="discover" signed-in="{{ true }}" hint-size="100%,72px"></dc-import></sc-if>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileTop" signed-in="{{ true }}" hint-size="100%,56px"></dc-import></sc-if>
+  <main style="flex:1;min-height:0;overflow-y:auto">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(16px,3cqi,40px) clamp(20px,5.5cqi,80px) clamp(40px,5cqi,80px);display:flex;flex-direction:column;gap:clamp(20px,3cqi,40px)">
+      <a href="#" style="min-height:44px;width:fit-content;display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:#1F4D3A;text-decoration:none" style-hover="text-decoration:underline" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A;border-radius:6px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Atelier Adùnní’s portfolio</a>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,4cqi,64px);align-items:start">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-if value="{{ hasMedia }}" hint-placeholder-val="{{ true }}">
+            <div style="position:relative;aspect-ratio:4 / 5;border-radius:16px;overflow:hidden;background:#EFE9DD"><img src="images/bride-cream-iro-gele.jpg" alt="Bride in champagne aso-oke iro and buba, full length" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block"><span style="position:absolute;right:14px;bottom:14px;font-size:12px;font-weight:600;color:#2B2B2B;background:rgba(250,246,238,.94);padding:5px 10px;border-radius:999px">1 / 4</span></div>
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+              <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="4"><button aria-label="{{ t.label }}" style="aspect-ratio:1;border-radius:10px;border:{{ t.border }};padding:0;overflow:hidden;background:#EFE9DD;cursor:pointer" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><img src="{{ t.img }}" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block"></button></sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noMedia }}">
+            <div role="img" aria-label="Image unavailable" style="aspect-ratio:4 / 5;border-radius:16px;background:#F3EDE1;border:1px dashed #B5AB98;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7A715F" stroke-width="1.4" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="m3 16 5-5 4 4 3-3 6 6M3 3l18 18"></path></svg><span style="font-size:15px;font-weight:600;color:#2B2B2B">Image unavailable</span><span style="font-size:14px;color:#5E5B55;max-width:260px">The designer’s photos for this piece couldn’t load. The description below is still accurate.</span><button style="margin-top:6px;height:44px;padding:0 18px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:#EBE3D3" style-focus="outline:none;box-shadow:0 0 0 2px #F3EDE1,0 0 0 4px #1F4D3A">Retry images</button></div>
+          </sc-if>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A5E22">{{ item.category }} · {{ item.occasion }}</span>
+          <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4cqi,56px);line-height:1.05;font-weight:600;color:#2B2B2B;text-wrap:balance">{{ item.title }}</h1>
+          <p style="margin:0;font-size:clamp(16px,1.3cqi,18px);line-height:1.7;text-wrap:pretty">{{ item.description }}</p>
+          <dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;padding:20px 0;border-top:1px solid #E6DFD0;border-bottom:1px solid #E6DFD0">
+            <sc-for list="{{ details }}" as="d" hint-placeholder-count="3"><div style="display:flex;flex-direction:column;gap:3px"><dt style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E5B55">{{ d.k }}</dt><dd style="margin:0;font-size:15px;color:#2B2B2B">{{ d.v }}</dd></div></sc-for>
+          </dl>
+          <sc-if value="{{ hasEstimate }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#FFFFFF;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;box-shadow:0 1px 2px rgba(20,51,42,.06),0 8px 22px rgba(20,51,42,.06)">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px"><span style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4A16;background:#F3EAD3;padding:4px 8px;border-radius:6px">Estimate</span><span style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:#2B2B2B">₦450,000 – ₦620,000</span></div>
+              <p style="margin:0;font-size:14px;line-height:1.55;color:#5E5B55">Indicative for one outfit like this. Your agreed price in ₦ is set in the specification you confirm with the designer.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noEstimate }}">
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#5E5B55">No estimate given for this piece. Pricing is agreed in your specification.</p>
+          </sc-if>
+          <a href="#" style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;background:#F3EDE1;text-decoration:none;color:#2B2B2B;transition:background .16s ease" style-hover="background:#EBE3D3" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A"><span style="flex:none;width:52px;height:52px;border-radius:50%;background:#E8D3B0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600">AA</span><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#5E5B55">Made by</span><span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600">Atelier Adùnní</span><span style="font-size:13px;color:#5E5B55">Lekki, Lagos · 4.9 (38 reviews)</span></span><span style="font-size:14px;font-weight:600;color:#1F4D3A;display:flex;align-items:center;gap:4px">Profile<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <button style="flex:1 1 220px;height:52px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;cursor:pointer" style-hover="background:#183D2E" style-focus="outline:none;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Request something similar</button>
+          </div>
+          <p style="margin:0;font-size:13px;line-height:1.5;color:#5E5B55">Portfolio pieces show past custom work. They are not in stock; each outfit is made to your measurements.</p>
+        </div>
+      </div>
+      <section aria-labelledby="more" style="display:flex;flex-direction:column;gap:18px;padding-top:clamp(12px,2cqi,32px)">
+        <h2 id="more" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8cqi,40px);font-weight:600;color:#2B2B2B">More from Atelier Adùnní</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,{{ colMin }}),1fr));gap:clamp(12px,2cqi,24px)">
+          <sc-for list="{{ more }}" as="it" hint-placeholder-count="3"><dc-import name="PortfolioCard" item="{{ it }}" hint-size="100%,380px"></dc-import></sc-for>
+        </div>
+      </section>
+    </div>
+    <sc-if value="{{ desktop }}"><dc-import name="MGNav" kind="footer" hint-size="100%,360px"></dc-import></sc-if>
+  </main>
+  <sc-if value="{{ mobile }}" hint-placeholder-val="{{ true }}"><dc-import name="MGNav" kind="mobileBottom" active="discover" signed-in="{{ true }}" hint-size="100%,70px"></dc-import></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vp&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;default&quot;,&quot;noMedia&quot;],&quot;default&quot;:&quot;default&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const vp = this.props.vp ?? 'desktop';
+    const noMedia = (this.props.state ?? 'default') === 'noMedia';
+    const tones = ['bride-cream-iro-gele', 'agbada-family-wide', 'maroon-iro-gele', 'gold-lace-gele'].map(n => 'images/' + n + '.jpg');
+    const more = [
+      { title: 'Gold lace aso-ebi with sculpted gele', category: 'Aso-ebi gown', occasion: 'Wedding', img: 'images/gold-lace-gele.jpg', caption: 'Guest in gold beaded lace and gele', estimate: '₦180,000 per gown' },
+      { title: 'Wine damask iro and buba for the mother of the bride', category: 'Iro and buba', occasion: 'Wedding', img: 'images/maroon-iro-gele.jpg', caption: 'Mother of the bride in wine damask with coral beads' },
+      { title: 'Groom and groomsmen agbada, cream and teal', category: 'Agbada', occasion: 'Traditional wedding', img: 'images/agbada-trio.jpg', caption: 'Groom and groomsmen in cream and teal agbada', estimate: '₦35,000' }
+    ];
+    return {
+      desktop: vp === 'desktop', mobile: vp === 'mobile', hasMedia: !noMedia, noMedia,
+      hasEstimate: !noMedia, noEstimate: noMedia, colMin: vp === 'mobile' ? '140px' : '260px',
+      more: vp === 'mobile' ? more.slice(0, 2) : more,
+      thumbs: tones.map((t, i) => ({ img: t, label: 'Show photo ' + (i + 1) + ' of 4', border: i === 0 ? '2px solid #1F4D3A' : '0' })),
+      item: {
+        title: 'Champagne aso-oke iro and buba with coral beads', category: 'Iro and buba', occasion: 'Traditional engagement',
+        description: 'Made for Tèmi’s engagement in Ibadan: hand-woven champagne aso-oke with a metallic gold weft, a fitted buba with bell sleeves, a wrapped iro and a matching ipele. The gele was tied on the morning in a fan style to frame her coral beads.'
+      },
+      details: [
+        { k: 'Pieces', v: 'Buba, iro, ipele, gele' },
+        { k: 'Fabric', v: 'Aso-oke, supplied by designer' },
+        { k: 'Made in', v: '5 weeks, 2 fittings' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"><style>body{margin:0;background:#E9E4D9}a{color:#1F4D3A}a:hover{color:#183D2E}</style></helmet>
+<section data-screen-label="Overview" style="padding:80px 80px 40px;font-family:'DM Sans',sans-serif;color:#4A4A48;display:flex;flex-direction:column;gap:12px;max-width:1100px">
+  <span style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#7A5E22">MY GARB · Batch 1 · Mobile 360 / Desktop 1440</span>
+  <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:72px;line-height:1;font-weight:600;color:#2B2B2B">Discovery, profiles &amp; accounts</h1>
+  <p style="margin:0;font-size:17px;line-height:1.6;max-width:820px">Five screens with their key states. Jump to: <a href="#sheet">Components</a> · <a href="#1a">1 Discover</a> · <a href="#2a">2 Search</a> · <a href="#3a">3 Profile</a> · <a href="#4a">4 Portfolio item</a> · <a href="#5a">5 Sign in &amp; register</a></p>
+</section>
+
+<section id="sheet" data-screen-label="Component sheet" style="padding:40px 80px 80px;font-family:'DM Sans',sans-serif;color:#4A4A48">
+  <div style="background:#FAF6EE;border-radius:24px;padding:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(520px,1fr));gap:56px;max-width:1880px;box-shadow:0 20px 60px rgba(20,51,42,.08)">
+    <div style="grid-column:1 / -1;display:flex;align-items:baseline;gap:16px"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">0</span><h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">Component sheet</h2></div>
+    <div style="display:flex;flex-direction:column;gap:16px"><h3 style="margin:0;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5E5B55">Colour tokens</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+        <sc-for list="{{ swatches }}" as="s" hint-placeholder-count="12"><div style="display:flex;flex-direction:column;gap:6px"><span style="height:64px;border-radius:12px;background:{{ s.hex }};border:1px solid rgba(43,43,43,.1)"></span><span style="font-size:13px;font-weight:600;color:#2B2B2B">{{ s.name }}</span><span style="font-size:12px;color:#5E5B55;font-family:ui-monospace,monospace">{{ s.hex }}</span></div></sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px"><h3 style="margin:0;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5E5B55">Type</h3>
+      <div style="display:flex;flex-direction:column;gap:14px;background:#FFFFFF;border-radius:16px;padding:28px">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:56px;line-height:1;font-weight:600;color:#2B2B2B">Display · Cormorant 600</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;color:#2B2B2B">Heading 2 · 28–48px</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#2B2B2B">Card title · 21–23px</span>
+        <span style="font-size:17px;line-height:1.6;color:#4A4A48">Body · DM Sans 400, 15–18px, line-height 1.6, #4A4A48 on ivory (8.4:1).</span>
+        <span style="font-size:14px;font-weight:600;color:#2B2B2B">Label · DM Sans 600, 14px — always visible above fields</span>
+        <span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A5E22">Eyebrow · gold ink #7A5E22 (5.6:1)</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px"><h3 style="margin:0;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5E5B55">Buttons · default / hover / focus / disabled</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,max-content);gap:14px;align-items:center">
+        <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">Primary</button>
+        <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#183D2E;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">Hover</button>
+        <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#1F4D3A;color:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Focus</button>
+        <button disabled style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#D8D2C4;color:#5E5B55;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">Disabled</button>
+        <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">Secondary</button>
+        <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#CDB27A;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">Hover</button>
+        <button style="height:48px;padding:0 22px;border:0;border-radius:12px;background:#D9C08C;color:#2B2B2B;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;box-shadow:0 0 0 2px #FAF6EE,0 0 0 4px #1F4D3A">Focus</button>
+        <button style="height:48px;padding:0 22px;border:1px solid #1F4D3A;border-radius:12px;background:transparent;color:#1F4D3A;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">Outline</button>
+      </div>
+      <h3 style="margin:12px 0 0;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5E5B55">Chips</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span style="min-height:44px;padding:0 16px;border:1px solid #D6CDBB;border-radius:999px;background:#FFFFFF;color:#2B2B2B;font-size:14px;font-weight:500;display:flex;align-items:center">Owambe</span>
+        <span style="min-height:44px;padding:0 16px;border:1px solid #D6CDBB;border-radius:999px;background:#F3EDE1;color:#2B2B2B;font-size:14px;font-weight:500;display:flex;align-items:center">Hover</span>
+        <span style="min-height:44px;padding:0 10px 0 16px;border-radius:999px;background:#1F4D3A;color:#FAF6EE;font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px">Aso-ebi gown<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7l10 10M17 7 7 17"></path></svg></span>
+        <span style="padding:6px 12px;border-radius:999px;background:#F3EDE1;color:#2B2B2B;font-size:14px;display:flex;align-items:center">Specialty tag</span>
+        <span style="display:flex;align-items:center;gap:8px"><span style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5E4A16;background:#F3EAD3;padding:4px 8px;border-radius:6px">Estimate</span><span style="font-size:15px;font-weight:600;color:#2B2B2B">₦180,000</span></span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px"><h3 style="margin:0;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5E5B55">Request &amp; order status</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ statuses }}" as="s" hint-placeholder-count="10"><span style="display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:999px;background:{{ s.bg }};color:{{ s.fg }};font-size:13px;font-weight:600"><span style="width:7px;height:7px;border-radius:50%;background:{{ s.fg }}"></span>{{ s.label }}</span></sc-for>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:#5E5B55">Text on each chip is ≥ 6:1. Colour is never the only signal — every chip carries its label. Request states (Submitted → Converted) and order states (Confirmed → Completed) are separate; Issue open is independent and blocks completion.</p>
+      <h3 style="margin:12px 0 0;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5E5B55">Inputs</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <div style="display:flex;flex-direction:column;gap:6px"><label style="font-size:14px;font-weight:600;color:#2B2B2B">Email</label><input value="folake.adeyemi@gmail.com" style="height:50px;padding:0 14px;border:1px solid #8F8778;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;color:#2B2B2B;min-width:0"></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><label style="font-size:14px;font-weight:600;color:#2B2B2B">Focus</label><input value="Lekki, Lagos" style="height:50px;padding:0 14px;border:1px solid #1F4D3A;box-shadow:0 0 0 3px rgba(31,77,58,.22);border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;color:#2B2B2B;min-width:0;outline:none"></div>
+        <div style="display:flex;flex-direction:column;gap:6px"><label style="font-size:14px;font-weight:600;color:#2B2B2B">Needed-by date</label><input value="12/09/2026" aria-invalid="true" style="height:50px;padding:0 14px;border:2px solid #B3412A;border-radius:12px;background:#FFFFFF;font-family:'DM Sans',sans-serif;font-size:15px;color:#2B2B2B;min-width:0"><span style="font-size:13px;color:#8A2E1C">Choose a date after today.</span></div>
+      </div>
+    </div>
+    <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:16px"><h3 style="margin:0;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5E5B55">Cards · white, radius 14–16, soft shadow, lift on hover</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+        <div style="width:340px"><dc-import name="DesignerCard" designer="{{ cardA }}" layout="mosaic" hint-size="340px,420px"></dc-import></div>
+        <div style="width:340px"><dc-import name="DesignerCard" designer="{{ cardB }}" layout="strip" hint-size="340px,470px"></dc-import></div>
+        <div style="width:250px"><dc-import name="PortfolioCard" item="{{ pItem }}" hint-size="250px,440px"></dc-import></div>
+        <div style="width:360px;display:flex;flex-direction:column;gap:10px"><dc-import name="MGNav" kind="mobileBottom" active="requests" signed-in="{{ true }}" hint-size="360px,70px"></dc-import><span style="font-size:13px;color:#5E5B55">Mobile bottom nav — sits below the scroll area, so it never overlaps content.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="1 Discover" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">1 · Home / Discover</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <div id="1a" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">1a</span><span style="font-size:15px;color:#2B2B2B">Mobile · Default</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Discover" vp="mobile" state="default" hint-size="360px,780px" style="height:100%"></dc-import></div></div>
+    <div id="1b" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">1b</span><span style="font-size:15px;color:#2B2B2B">Desktop · Default</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Discover" vp="desktop" state="default" hint-size="1440px,2600px"></dc-import></div></div>
+    <div id="1c" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">1c</span><span style="font-size:15px;color:#2B2B2B">Desktop · Loading featured designers</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Discover" vp="desktop" state="loading" hint-size="1440px,2600px"></dc-import></div></div>
+  </div>
+</section>
+
+<section data-screen-label="2 Search" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">2 · Designer search results</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ searchMobile }}" as="f" hint-placeholder-count="4"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Search" vp="mobile" state="{{ f.state }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ searchDesktop }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Search" vp="desktop" state="{{ f.state }}" hint-size="1440px,1600px"></dc-import></div></div></sc-for>
+  </div>
+</section>
+
+<section data-screen-label="3 Profile" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">3 · Designer profile</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <div id="3a" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">3a</span><span style="font-size:15px;color:#2B2B2B">Mobile · Default</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Designer Profile" vp="mobile" state="default" hint-size="360px,780px" style="height:100%"></dc-import></div></div>
+    <div id="3b" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">3b</span><span style="font-size:15px;color:#2B2B2B">Mobile · New designer, no reviews yet</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Designer Profile" vp="mobile" state="noReviews" hint-size="360px,780px" style="height:100%"></dc-import></div></div>
+    <div id="3c" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">3c</span><span style="font-size:15px;color:#2B2B2B">Desktop · Default</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Designer Profile" vp="desktop" state="default" hint-size="1440px,2200px"></dc-import></div></div>
+  </div>
+</section>
+
+<section data-screen-label="4 Portfolio item" style="padding:40px 80px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">4 · Portfolio item detail</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <div id="4a" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">4a</span><span style="font-size:15px;color:#2B2B2B">Mobile · Default</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Portfolio Item" vp="mobile" state="default" hint-size="360px,780px" style="height:100%"></dc-import></div></div>
+    <div id="4b" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">4b</span><span style="font-size:15px;color:#2B2B2B">Mobile · Images failed, no estimate</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Portfolio Item" vp="mobile" state="noMedia" hint-size="360px,780px" style="height:100%"></dc-import></div></div>
+    <div id="4c" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">4c</span><span style="font-size:15px;color:#2B2B2B">Desktop · Default</span></div><div style="width:1440px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Portfolio Item" vp="desktop" state="default" hint-size="1440px,1900px"></dc-import></div></div>
+  </div>
+</section>
+
+<section data-screen-label="5 Auth" style="padding:40px 80px 120px;font-family:'DM Sans',sans-serif">
+  <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:600;color:#2B2B2B">5 · Sign in, register &amp; recovery</h2>
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <sc-for list="{{ authMobile }}" as="f" hint-placeholder-count="5"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:360px;height:780px;border-radius:28px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Auth" vp="mobile" state="{{ f.state }}" role="{{ f.role }}" hint-size="360px,780px" style="height:100%"></dc-import></div></div></sc-for>
+    <sc-for list="{{ authDesktop }}" as="f" hint-placeholder-count="2"><div id="{{ f.id }}" style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:13px;font-weight:600;color:#FAF6EE;background:#1F4D3A;padding:4px 10px;border-radius:8px">{{ f.id }}</span><span style="font-size:15px;color:#2B2B2B">{{ f.label }}</span></div><div style="width:1440px;height:900px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(20,51,42,.14)"><dc-import name="Auth" vp="desktop" state="{{ f.state }}" role="{{ f.role }}" hint-size="1440px,900px" style="height:100%"></dc-import></div></div></sc-for>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      swatches: [
+        { name: 'Forest · nav, primary', hex: '#1F4D3A' }, { name: 'Forest hover', hex: '#183D2E' }, { name: 'Deep forest · footer', hex: '#14332A' }, { name: 'Ivory · page', hex: '#FAF6EE' },
+        { name: 'Champagne · secondary', hex: '#D9C08C' }, { name: 'Champagne hover', hex: '#CDB27A' }, { name: 'Gold ink · eyebrow', hex: '#7A5E22' }, { name: 'Sand · tint', hex: '#F3EDE1' },
+        { name: 'Charcoal · headings', hex: '#2B2B2B' }, { name: 'Body', hex: '#4A4A48' }, { name: 'Muted text', hex: '#5E5B55' }, { name: 'Card', hex: '#FFFFFF' }
+      ],
+      statuses: [
+        { label: 'Submitted', bg: '#ECEAE4', fg: '#4A4A48' },
+        { label: 'Discussing', bg: '#F3EAD3', fg: '#5E4A16' },
+        { label: 'Awaiting confirmation', bg: '#F3EAD3', fg: '#5E4A16' },
+        { label: 'Confirmed', bg: '#E3EDE6', fg: '#1F4D3A' },
+        { label: 'In production', bg: '#E3EAF2', fg: '#2D4A6B' },
+        { label: 'Ready', bg: '#F6E6C8', fg: '#6B4510' },
+        { label: 'Handed over', bg: '#E8E3EE', fg: '#4D3B66' },
+        { label: 'Completed', bg: '#1F4D3A', fg: '#FAF6EE' },
+        { label: 'Issue open', bg: '#F6E1DA', fg: '#8A2E1C' },
+        { label: 'Declined · Withdrawn · Cancelled', bg: '#ECEAE4', fg: '#5E5B55' }
+      ],
+      cardA: { businessName: 'Atelier Adùnní', initials: 'AA', avatarTone: '#E8D3B0', serviceLocation: 'Lekki, Lagos', rating: '4.9', reviewCount: 38, specializations: ['Bridal aso-ebi', 'Iro and buba', 'Gele'], availability: 'Accepting requests', images: ['images/bride-cream-iro-gele.jpg', 'images/maroon-iro-gele.jpg', 'images/gold-lace-gele.jpg', 'images/agbada-trio.jpg'], captions: ['Coral iro and buba'] },
+      cardB: { businessName: 'Garden City Tailoring', initials: 'GC', avatarTone: '#C9D3C4', serviceLocation: 'GRA Phase 2, Port Harcourt', reviewCount: 0, specializations: ['Kaftan', 'Senator wear'], availability: 'Accepting requests', images: ['images/navy-kaftan-set.jpg', 'images/beige-green-shirt.jpg', 'images/ankara-mens-set.jpg', 'images/group.jpg'], captions: ['Matching family kaftans'] },
+      pItem: { title: 'Gold lace aso-ebi with sculpted gele', category: 'Aso-ebi gown', occasion: 'Wedding', img: 'images/gold-lace-gele.jpg', caption: 'Guest in gold beaded lace and gele', estimate: '₦180,000 per gown' },
+      searchMobile: [
+        { id: '2a', label: 'Mobile · Default', state: 'default' },
+        { id: '2b', label: 'Mobile · Loading (filters kept)', state: 'loading' },
+        { id: '2c', label: 'Mobile · No results', state: 'empty' },
+        { id: '2d', label: 'Mobile · Failed to load', state: 'error' }
+      ],
+      searchDesktop: [
+        { id: '2e', label: 'Desktop · Default', state: 'default' },
+        { id: '2f', label: 'Desktop · No results', state: 'empty' }
+      ],
+      authMobile: [
+        { id: '5a', label: 'Mobile · Sign in (returning to request)', state: 'signin', role: 'customer' },
+        { id: '5b', label: 'Mobile · Sign in error', state: 'signinError', role: 'customer' },
+        { id: '5c', label: 'Mobile · Register, designer', state: 'register', role: 'designer' },
+        { id: '5d', label: 'Mobile · Password recovery', state: 'recover', role: 'customer' },
+        { id: '5e', label: 'Mobile · Recovery link sent', state: 'recoverSent', role: 'customer' }
+      ],
+      authDesktop: [
+        { id: '5f', label: 'Desktop · Sign in', state: 'signin', role: 'customer' },
+        { id: '5g', label: 'Desktop · Register, customer', state: 'register', role: 'customer' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
